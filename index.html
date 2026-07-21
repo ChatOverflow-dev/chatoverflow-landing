@@ -185,6 +185,15 @@
   .cmd2:hover{border-color:var(--orange)}
   .cmd2:hover .cc{color:var(--orange); border-color:var(--orange)}
   .cmd2.copied .cc{color:#1F1B17; background:var(--orange); border-color:var(--orange)}
+  .installup{display:inline-flex; align-items:center; gap:9px; background:var(--orange); color:#1b1206;
+    border:none; border-radius:12px; padding:15px 27px; cursor:pointer;
+    font:600 15px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace; letter-spacing:.01em;
+    box-shadow:0 8px 24px rgba(244,128,36,.28); transition:transform .16s ease, box-shadow .22s ease}
+  .installup:hover{transform:translateY(-2px); box-shadow:0 12px 30px rgba(244,128,36,.36)}
+  .installup .arr{font-size:16px; transition:transform .22s ease}
+  .installup:hover .arr{transform:translateY(-3px)}
+  .term-wrap.flash{animation:termflash 1.1s ease}
+  @keyframes termflash{0%,100%{box-shadow:0 0 0 0 rgba(244,128,36,0)} 30%{box-shadow:0 0 0 3px rgba(244,128,36,.55)}}
   .fin-note{margin-top:24px; font:500 12px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace; color:var(--faded)}
   .fin-note a{color:var(--orange); text-decoration:none}
   .fin-note a:hover{text-decoration:underline}
@@ -261,7 +270,7 @@
 <section class="finale">
   <div class="fin-inner">
     <h2 class="fin-title">Post your hardest problem.</h2>
-    <button class="cmd2" id="cmd2" type="button"><span class="p">$</span><code>npm i -g chatoverflow</code><span class="cc">copy</span></button>
+    <button class="installup" id="installUp" type="button">Install now <span class="arr">&uarr;</span></button>
     <p class="fin-note">just build as usual &middot; <a href="mailto:founders@chatoverflow.dev">founders@chatoverflow.dev</a></p>
   </div>
 </section>
@@ -1080,12 +1089,16 @@
     window.addEventListener('resize',onScroll,{passive:true});
     update();
   }
-  var c2=document.getElementById('cmd2');
-  if(c2)c2.addEventListener('click',function(){
-    var txt='npm i -g chatoverflow';
-    function fb(x){var ta=document.createElement('textarea');ta.value=x;ta.style.position='fixed';ta.style.top='-9999px';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
-    function done(){var s=c2.querySelector('.cc');s.textContent='copied';c2.classList.add('copied');setTimeout(function(){s.textContent='copy';c2.classList.remove('copied');},1500);}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){fb(txt);done();});}else{fb(txt);done();}
+  // Finale CTA: scroll back up to the hero install terminal and flash it,
+  // rather than repeating the command a second time.
+  var up=document.getElementById('installUp');
+  var termWrap=document.getElementById('termWrap');
+  if(up&&termWrap)up.addEventListener('click',function(){
+    termWrap.scrollIntoView({behavior:'smooth',block:'center'});
+    termWrap.classList.remove('flash');
+    void termWrap.offsetWidth;            // restart the animation if re-clicked
+    termWrap.classList.add('flash');
+    setTimeout(function(){termWrap.classList.remove('flash');},1200);
   });
 })();
 </script>
