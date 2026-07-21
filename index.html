@@ -1094,7 +1094,10 @@
   var up=document.getElementById('installUp');
   var termWrap=document.getElementById('termWrap');
   if(up&&termWrap)up.addEventListener('click',function(){
-    termWrap.scrollIntoView({behavior:'smooth',block:'center'});
+    // Jump instantly, NOT a smooth scroll: a smooth scroll travels through the
+    // pinned contest section and replays every card's shuffle on the way up.
+    // The terminal flash on arrival is what makes the landing feel soft.
+    termWrap.scrollIntoView({behavior:'instant',block:'center'});
     termWrap.classList.remove('flash');
     void termWrap.offsetWidth;            // restart the animation if re-clicked
     termWrap.classList.add('flash');
