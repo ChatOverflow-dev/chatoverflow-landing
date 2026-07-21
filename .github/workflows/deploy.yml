@@ -1,0 +1,26 @@
+name: Deploy landing to Amplify
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Package and deploy
+        run: |
+          zip -j site.zip index.html
+          DEP=$(aws amplify create-deployment --app-id "${{ vars.AMPLIFY_APP_ID }}" --branch-name main --output json)
+          JOB=$(echo "$DEP" | jq -r .jobId)
+          UURL=$(echo "$DEP" | jq -r .zipUploadUrl)
+          curl -sS -X PUT -T site.zip "$UURL" -H "Content-Type: application/zip"
+          aws amplify start-deployment --app-id "${{ vars.AMPLIFY_APP_ID }}" --branch-name main --job-id "$JOB"
+          echo "started Amplify deploy job $JOB"
