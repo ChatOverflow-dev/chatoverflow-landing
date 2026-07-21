@@ -30,20 +30,16 @@
   .back{text-decoration:none; color:var(--link);
     font:600 13px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace}
   .back:hover{color:var(--orange)}
-  main{max-width:860px; margin:0 auto; padding:40px 24px 90px}
+  main{max-width:840px; margin:0 auto; padding:34px 24px 90px}
+  .lead{font:600 12px/1.5 ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    letter-spacing:.02em; color:var(--faded); margin:0 2px 16px}
 
-  /* skin the Termly-injected policy body to match the brand + theme */
-  main{color:var(--sub)}
-  [name="termly-embed"], [name="termly-embed"] *{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif !important;
-    background-color:transparent !important; color:var(--sub) !important}
-  [name="termly-embed"] h1,[name="termly-embed"] h2,[name="termly-embed"] h3,
-  [name="termly-embed"] h4,[name="termly-embed"] strong,[name="termly-embed"] b{
-    color:var(--ink) !important; letter-spacing:-.01em}
-  [name="termly-embed"] a{color:var(--link) !important; text-decoration-color:rgba(244,128,36,.4)}
-  [name="termly-embed"] a:hover{color:var(--orange) !important}
-  [name="termly-embed"] hr,[name="termly-embed"] td,[name="termly-embed"] th{
-    border-color:var(--line) !important}
+  /* Termly renders the policy inside an iframe, which page CSS can't reach.
+     So we present it as a clean white "document card" that reads well on
+     both the dark and light page themes. */
+  .doc{background:#fff; border:1px solid #e7e1d7; border-radius:16px;
+    box-shadow:0 12px 44px rgba(20,15,8,.14); padding:14px 26px; overflow:hidden}
+  .doc [name="termly-embed"]{min-height:60vh}
   ::selection{background:var(--sel)}
 </style>
 </head>
@@ -95,8 +91,11 @@ z"/>
     <a class="back" href="/">&larr; back to home</a>
   </div>
   <main>
-    <div name="termly-embed" data-id="547254a2-d744-4739-837e-13fbbba4f69c"></div>
-    <script src="https://app.termly.io/embed-policy.min.js"></script>
+    <p class="lead">// Terms of Service</p>
+    <div class="doc">
+      <div name="termly-embed" data-id="547254a2-d744-4739-837e-13fbbba4f69c"></div>
+      <script src="https://app.termly.io/embed-policy.min.js"></script>
+    </div>
   </main>
 </body>
 </html>
