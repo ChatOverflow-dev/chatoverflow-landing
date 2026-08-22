@@ -36,9 +36,12 @@
   }
 
   *{margin:0;padding:0;box-sizing:border-box}
-  html{height:100%}
+  /* overflow-x on body alone doesn't stop horizontal panning on iOS Safari —
+     html must clip too. clip (not hidden) so no scroll container is created
+     and position:sticky sections keep working. */
+  html{height:100%; overflow-x:clip}
   body{
-    background:var(--paper); color:var(--ink); overflow-x:hidden;
+    background:var(--paper); color:var(--ink); overflow-x:clip;
     font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
     -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
   }
@@ -160,7 +163,7 @@
 
   /* ===== contest: scroll-pinned shuffling card deck ===== */
   .contest{position:relative; height:460vh; background:var(--paper)}
-  .contest .pin{position:sticky; top:0; height:100vh; overflow:hidden;
+  .contest .pin{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden;
     display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px}
   .c-head{position:absolute; top:11vh; left:0; right:0; text-align:center; padding:0 24px}
   .c-eyebrow{font:600 11px/1 ui-monospace,"SF Mono",Menlo,Consolas,monospace; letter-spacing:.28em; text-transform:uppercase; color:var(--orange); margin-bottom:18px}
@@ -179,7 +182,7 @@
   .deck-dots span.on{background:var(--orange); width:22px; border-radius:4px}
 
   /* ===== finale CTA ===== */
-  .finale{position:relative; min-height:100vh; background:var(--paper); border-top:1px solid var(--card-bd);
+  .finale{position:relative; min-height:100vh; min-height:100dvh; background:var(--paper); border-top:1px solid var(--card-bd);
     display:flex; align-items:center; justify-content:center; padding:80px 24px}
   .fin-inner{text-align:center; max-width:600px}
   .prize{font:500 13px/1.6 ui-monospace,"SF Mono",Menlo,Consolas,monospace; letter-spacing:.03em; color:var(--subtext); margin-bottom:26px}
@@ -274,7 +277,7 @@
   :root[data-theme="light"] #howit2{
     --h-ink:#1a1712; --h-muted:#6E6A64; --h-faint:#9c968c; --h-hair:#E7E3DD; --h-orange:#F48024;
   }
-  #howit2 .ht-pin{position:sticky; top:0; height:100vh; overflow:hidden; max-width:1180px; margin:0 auto;
+  #howit2 .ht-pin{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden; max-width:1180px; margin:0 auto;
     display:flex; flex-direction:column; justify-content:center; padding:40px clamp(24px,5vw,44px)}
   #howit2 .ht-head{flex:none; max-width:640px}
   #howit2 .ht-eyebrow{font-family:var(--h-mono); font-size:12px; letter-spacing:.04em; color:var(--h-faint)}
@@ -440,7 +443,7 @@
     --wl-ink:#1a1712; --wl-muted:#6E6A64; --wl-faint:#9c968c; --wl-hair:#E7E3DD;
     --wl-orange:#F48024; --wl-green:#5C8450; --wl-red:#C0542F; --wl-raise:#ffffff;
   }
-  #whatleaves .wl-pin{position:sticky; top:0; min-height:100vh; display:flex; align-items:center}
+  #whatleaves .wl-pin{position:sticky; top:0; min-height:100vh; min-height:100dvh; display:flex; align-items:center}
   #whatleaves .wl-wrap{max-width:1140px; margin:0 auto; width:100%; padding:48px clamp(24px,5vw,44px)}
   #whatleaves .sec-head{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
   #whatleaves .sec-head.on{opacity:1; transform:none}
@@ -564,7 +567,7 @@
     --c2-ink:#1a1712; --c2-muted:#6E6A64; --c2-faint:#9c968c; --c2-hair:#E7E3DD; --c2-hair2:#EFEBE4;
     --c2-orange:#F48024; --c2-raise2:#F4F2EE; --c2-cardtop:#ffffff; --c2-cardbot:#f7f3ec;
   }
-  #commons2 .c2-pin{position:sticky; top:0; height:100vh; overflow:hidden;
+  #commons2 .c2-pin{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden;
     display:flex; flex-direction:column; align-items:center; padding:clamp(40px,7vh,72px) 40px 40px}
   #commons2 .c2-head{text-align:center; max-width:760px; flex:none}
   #commons2 .c2-eyebrow{font-family:var(--c2-mono); font-size:13px; letter-spacing:.24em;
