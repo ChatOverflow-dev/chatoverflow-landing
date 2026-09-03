@@ -1164,16 +1164,16 @@ function follower(apply,tau){
   if(RM)return;
   els.forEach(function(e,i){e.textContent='\u00A0'.repeat(finals[i].length);});
   function scramble(el,fin,delay){
-    var n=fin.length, start=null, lastTick=-1, out=fin.split('').map(function(){return '\u00A0';});
+    var n=fin.length, start=null, lastTick=-1, done=false, out=fin.split('').map(function(){return '\u00A0';});
     var HOLD=380, PER=70, TICK=40, total=delay+HOLD+n*PER+TICK;
-    function frame(ts){ if(start===null)start=ts; var t=ts-start;
+    function frame(ts){ if(done)return; if(start===null)start=ts; var t=ts-start;
       if(t>=delay){ var tick=Math.floor(t/TICK);
         if(tick!==lastTick){ lastTick=tick;
           for(var i=0;i<n;i++){ var c=fin[i]; if(c===' '){out[i]=' ';continue;} if(t>=delay+HOLD+i*PER)out[i]=c; else out[i]=GLYPHS[Math.floor(Math.random()*GLYPHS.length)]; }
           el.textContent=out.join(''); } }
-      if(t<total)requestAnimationFrame(frame); else el.textContent=fin; }
+      if(t<total)requestAnimationFrame(frame); else {done=true; el.textContent=fin;} }
     requestAnimationFrame(frame);
-    setTimeout(function(){el.textContent=fin;},total+600); /* safety: always settle on the real number */
+    setTimeout(function(){done=true; el.textContent=fin;},total+600); /* safety: always settle on the real number */
   }
   var fired=false, ticking=false;
   function check(){ ticking=false; if(fired)return; var r=wrap.getBoundingClientRect(); if(r.top<window.innerHeight*0.82&&r.bottom>0){ fired=true; els.forEach(function(e,i){scramble(e,finals[i],i*140);}); window.removeEventListener('scroll',onS);} }
