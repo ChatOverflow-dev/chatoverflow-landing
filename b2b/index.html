@@ -148,7 +148,7 @@
   /* LEFT variant: add class hf-left to #hero. Field sits in the left 40%, text starts at 44%. */
   #hero.hf-left .hf-c{right:auto; left:clamp(22px,5vw,44px)}
   #hero.hf-left .hf-txt{margin-left:auto; max-width:56%}
-  @media (max-width:860px){ .hf{display:none} #hero .hf-txt,#hero.hf-left .hf-txt{max-width:none; margin-left:0} }
+  @media (max-width:600px){ .hf{display:none} #hero .hf-txt,#hero.hf-left .hf-txt{max-width:none; margin-left:0} }
   /* =========================================================
      AGENT STRIP
      ========================================================= */
@@ -191,8 +191,22 @@
   .hs-lbl b{font-weight:400;color:var(--signal);font-size:10px;margin-right:7px;vertical-align:1px}
 
   .hs-stage{margin-top:14px}
-  .hs-svg{display:block;width:100%;height:auto;max-height:calc(100dvh - 500px);overflow:visible}
+  .hs-svg{display:block;width:100%;height:auto;max-height:calc(100dvh - var(--hsres,500px));overflow:visible}
   @media (max-height:840px){ .hs-head .lede{font-size:15.5px; line-height:1.45; margin-top:10px} .hs-head h2.sec{font-size:clamp(26px,3vw,34px)} .hs-fig{margin-top:14px} .hs-stage{margin-top:10px} .hs-caprow{margin-top:14px} }
+  /* compact pinned sections at low heights instead of switching layout */
+  @media (max-height:760px){
+    .hs-head .lede,#skills .sk-head .lede,.ht-head .lede{display:none}
+    .hs-head h2.sec,#skills .sk-head h2.sec,.ht-head h2.sec{font-size:clamp(24px,2.8vw,32px)}
+    .hs-pin,.sk-pin,.ht-pin{padding-top:62px}
+    #skills .fig{margin-top:36px} #skills .caprow{margin-top:32px}
+    .ht-grid{margin-top:24px}
+  }
+  @media (max-height:680px){ #skills .fig{zoom:.85} .ht-grid{zoom:.85} }
+  @media (max-height:600px){ #skills .fig{zoom:.72} .ht-grid{zoom:.72} .hs-caprow{margin-top:10px} }
+  /* narrow desktop windows: keep the pinned layouts, scale the figures */
+  @media (max-width:980px){ #skills .fig{zoom:.85} .ht-grid{zoom:.9} }
+  @media (max-width:820px){ #skills .fig{zoom:.72} .ht-grid{zoom:.8} }
+  @media (max-width:720px){ #skills .fig{zoom:.62} .ht-grid{zoom:.72} }
 
   .hs-caprow{margin-top:28px;border-top:1px solid var(--hair);padding-top:14px}
   .hs-cap{display:inline-grid;font-size:15px;line-height:1.5;color:var(--subtext);letter-spacing:-.01em;min-height:24px}
@@ -233,7 +247,7 @@
     body.shot .hs{height:auto}
   body.shot .hs-pin{position:relative}
   body.solo .hs{height:auto} body.solo .hs-pin{position:relative}
-  @media (max-width:860px){ .hs-head{max-width:none} }
+  @media (max-width:600px){ .hs-head{max-width:none} }
   @media (prefers-reduced-motion: reduce){ .hs-svg .caret{animation:none} .hs-lbl .lay,.hs-cap .lay{transition:none} }
 
   /* =========================================================
@@ -251,7 +265,7 @@
   #skills .vb .vb-dn{stroke:var(--ink); stroke-opacity:var(--vb-dn)}
   #skills .vb .vb-edge{stroke:var(--faded); stroke-opacity:var(--vb-edge); stroke-width:1; stroke-linecap:butt}
   #skills .vb .vb-row,#skills .vb .vb-down,#skills .vb .vb-edge{opacity:0}
-  @media (max-width:860px){ #skills .vb{display:none} }
+  @media (max-width:600px){ #skills .vb{display:none} }
   @media (prefers-reduced-motion: reduce){ #skills .vb .vb-row,#skills .vb .vb-down{opacity:1} #skills .vb .vb-edge{display:none} }
   #skills .sk-head{max-width:640px}
   #skills .fig{margin-top:clamp(56px,7vh,80px)}
@@ -298,7 +312,7 @@
   #skills .caprow{margin-top:clamp(40px,6vh,64px)}
   .nomo #skills *{transition:none !important}
   @media (prefers-reduced-motion: reduce){ #skills *{transition:none !important} }
-  @media (max-width:860px){
+  @media (max-width:600px){
     #skills{height:auto}
     #skills .sk-pin{position:static; height:auto; overflow:visible; padding:88px 0}
     #skills .fig{margin-top:48px}
@@ -330,7 +344,7 @@
   .ht-dots{display:flex; gap:10px; margin-top:28px}
   .ht-dots button{width:6px; height:6px; border-radius:50%; border:0; padding:0; background:var(--hair2); cursor:pointer; transition:background .25s ease, transform .25s var(--ease)}
   .ht-dots button.on{background:var(--ink); transform:scale(1.35)}
-  @media (max-width:820px){ .ht-dots{display:none} }
+  @media (max-width:600px){ .ht-dots{display:none} }
   .ht-body{height:246px; overflow:hidden; position:relative; padding:0 18px}
   .ht-scroll{transition:transform .6s var(--ease)}
   .ht-stage{min-height:246px; display:flex; flex-direction:column; justify-content:flex-start; padding-top:14px}
@@ -343,7 +357,7 @@
   .led .lr .tx::before{content:"\25C6"; color:var(--signal); font-size:9px; margin-right:7px}
   .led .lr.new{animation:ledin .38s var(--ease); overflow:hidden}
   @keyframes ledin{from{opacity:0; max-height:0; padding-top:0; padding-bottom:0} to{opacity:1; max-height:70px; padding-top:6px; padding-bottom:6px}}
-  @media (max-width:820px){
+  @media (max-width:600px){
     #howit{height:auto}
     .ht-pin{position:static; height:auto; padding:88px 0 64px}
     .ht-grid{grid-template-columns:1fr; gap:30px; margin-top:34px}
@@ -403,26 +417,6 @@
   .ft-links{display:flex; gap:22px; flex-wrap:wrap}
   .ft-tag{margin-top:18px}
   @media (max-width:860px){ .ft-stage{height:180px} .ft-bottom{padding-top:22px} }
-  /* ---------- short viewports (body.short, set by JS when innerHeight<=700 or #short=1): unpin the three scrubbed sections ---------- */
-  body.short .hs{height:auto}
-  body.short .hs-pin{position:static;height:auto;overflow:visible;padding:96px 0 48px}
-  body.short .hs-svg{max-height:none}
-  body.short #skills{height:auto}
-  body.short #skills .sk-pin{position:static;height:auto;overflow:visible;padding:96px 0 72px}
-  body.short #skills .fig-inner{display:block}
-  body.short #skills .row{opacity:1 !important}
-  body.short #skills .row + .row{margin-top:64px}
-  body.short #skills .rh{margin-bottom:72px}
-  body.short #howit{height:auto}
-  body.short .ht-pin{position:static;height:auto;overflow:visible;padding:96px 0 64px}
-  body.short .ht-grid{align-items:start}
-  body.short .ht-stack{min-height:0}
-  body.short .ht-step{position:static;opacity:1 !important;transform:none !important;margin-bottom:30px}
-  body.short .ht-dots{display:none}
-  body.short .ht-body{height:auto}
-  body.short .ht-stage{min-height:0;padding:14px 0;border-top:1px solid var(--thair)}
-  body.short .ht-stage:first-child{border-top:0}
-  body.short .ht-scroll{transform:none !important}
 </style>
 </head>
 <body>
@@ -749,9 +743,6 @@ function follower(apply,tau){
   return function(t,immediate){ target=t; if(immediate||cur===null||RM){cur=t; apply(t); return;} if(!raf){last=0; raf=requestAnimationFrame(tick);} };
 }
 
-/* short viewports: unpin the scrubbed sections (also #short=1 for screenshots) */
-function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash);}
-(function(){function upd(){document.body.classList.toggle('short',isShort());} upd(); window.addEventListener('resize',upd,{passive:true});})();
 /* dev: #hov=1 forces the strip's hover state (screenshots) */
 (function(){ if(/hov=1/.test(location.hash)) document.querySelectorAll('.ag').forEach(function(e){e.classList.add('hov');}); })();
 /* dev: #solo=<id> renders one section alone (screenshots) */
@@ -1142,7 +1133,7 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
   var svg=makeSvg(stage), world=drawWorld(svg,S('g',{},svg));
   function setLay(el,i){var l=el.querySelectorAll('.lay');l[0].classList.toggle('off',i!==0);l[1].classList.toggle('off',i!==1);}
   var fig=document.querySelector('.hs-fig');
-  function fit(){ var w=clamp((window.innerHeight-500)*W/H,520,1000); fig.style.maxWidth=w+'px'; }   /* keep label + caprow the figure's width when height-bound */
+  function fit(){ var h=window.innerHeight, res=h<=620?250:(h<=760?330:500); fig.style.setProperty('--hsres',res+'px'); var w=clamp((h-res)*W/H,420,1000); fig.style.maxWidth=w+'px'; }   /* keep label + caprow the figure's width when height-bound */
   function applyMain(p){ world.apply(p); var i=p<.52?0:1; setLay(lbl,i); setLay(cap,i); }
 
   /* ---------- static fallback ---------- */
@@ -1157,8 +1148,8 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
       st.appendChild(b);
     });
   }
-  var mq=window.matchMedia&&window.matchMedia('(max-width:860px)'), mqH=window.matchMedia&&window.matchMedia('(max-height:700px)');
-  function mode(){var s=RM||(mq&&mq.matches)||isShort();document.body.classList.toggle('static',!!s);if(s)buildStatic();return s;}
+  var mq=window.matchMedia&&window.matchMedia('(max-width:600px)');
+  function mode(){var s=RM||(mq&&mq.matches);document.body.classList.toggle('static',!!s);if(s)buildStatic();return s;}
 
   /* ---------- scroll driver (#p=0..1 overrides) ---------- */
   var ticking=false;
@@ -1334,7 +1325,7 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
   var blks=[].slice.call(fig.querySelectorAll('.blk')), dots=[].slice.call(fig.querySelectorAll('.dot')), lbs=[].slice.call(fig.querySelectorAll('.lb')), cards=[].slice.call(fig.querySelectorAll('.card'));
   var votes=document.getElementById('votes'), staleBlk=document.getElementById('staleBlk'), tiny=document.getElementById('tinyBlk');
   var scan1=document.getElementById('scan1'), scan2=document.getElementById('scan2'), row2=document.getElementById('row2'), row1=document.querySelector('#skills .row.r1');
-  var mq=window.matchMedia&&window.matchMedia('(max-width:860px)');
+  var mq=window.matchMedia&&window.matchMedia('(max-width:600px)');
   blks.concat(dots,lbs,cards).forEach(function(e){e._r=e.closest('.r2')?2:1;});
   var W=0, G=null, lastP=-1;
   var BASE=2.4, SLOW=0.45, DWELL=0.5, POP=0.55, TAIL=0.5;
@@ -1382,7 +1373,7 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
   function onScroll(){ if(ticking)return; ticking=true; requestAnimationFrame(function(){ ticking=false;
     if(!G)measure();
     var p;
-    if(hashP!==null){setP(hashP,true);return;} else if(RM||(mq&&mq.matches)||isShort())p=1; else { var h=sec.offsetHeight-window.innerHeight; p=h>0?(-sec.getBoundingClientRect().top)/h:0; }
+    if(hashP!==null){setP(hashP,true);return;} else if(RM||(mq&&mq.matches))p=1; else { var h=sec.offsetHeight-window.innerHeight; p=h>0?(-sec.getBoundingClientRect().top)/h:0; }
     setP(clamp(p,0,1));
   });}
   var setP=follower(render,200);
@@ -1400,7 +1391,7 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
   var scroll=sec.querySelector('.ht-scroll'), body=sec.querySelector('.ht-body');
   var stages=[].slice.call(sec.querySelectorAll('.ht-stage'));
   var setTitle=swapper(document.getElementById('htTitle')), live=document.getElementById('htLive'), setCap=swapper(document.getElementById('htCap'));
-  var mq=window.matchMedia&&window.matchMedia('(max-width:820px)');
+  var mq=window.matchMedia&&window.matchMedia('(max-width:600px)');
   var TITLES=['chatoverflow','chatoverflow','chatoverflow','claude code'];
   var LIVES=['connected','learning','learning','connected'];
   var CAPS=['One install.','Past sessions, distilled.','New sessions, as they happen.','Delivered before the plan, not after the mistake.'];
@@ -1420,7 +1411,7 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
   }
   var ticking=false;
   function onScroll(){ if(ticking)return; ticking=true; requestAnimationFrame(function(){ ticking=false;
-    if((mq&&mq.matches)||isShort()){ setStep(0); return; }
+    if(mq&&mq.matches){ setStep(0); return; }
     var hp=hashNum('hw'); var p;
     if(hp!==null)p=hp; else { var h=sec.offsetHeight-window.innerHeight; p=h>0?(-sec.getBoundingClientRect().top)/h:0; }
     p=clamp(p,0,1);
