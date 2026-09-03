@@ -191,8 +191,8 @@
   .hs-lbl b{font-weight:400;color:var(--signal);font-size:10px;margin-right:7px;vertical-align:1px}
 
   .hs-stage{margin-top:14px}
-  .hs-svg{display:block;width:100%;height:auto;max-height:calc(100dvh - 560px);overflow:visible}
-  @media (max-height:840px){ .hs-head .lede{font-size:16px; margin-top:12px} .hs-fig{margin-top:18px} .hs-caprow{margin-top:18px} }
+  .hs-svg{display:block;width:100%;height:auto;max-height:calc(100dvh - 500px);overflow:visible}
+  @media (max-height:840px){ .hs-head .lede{font-size:15.5px; line-height:1.45; margin-top:10px} .hs-head h2.sec{font-size:clamp(26px,3vw,34px)} .hs-fig{margin-top:14px} .hs-stage{margin-top:10px} .hs-caprow{margin-top:14px} }
 
   .hs-caprow{margin-top:28px;border-top:1px solid var(--hair);padding-top:14px}
   .hs-cap{display:inline-grid;font-size:15px;line-height:1.5;color:var(--subtext);letter-spacing:-.01em;min-height:24px}
@@ -1142,7 +1142,7 @@ function isShort(){return window.innerHeight<=700||/short=1/.test(location.hash)
   var svg=makeSvg(stage), world=drawWorld(svg,S('g',{},svg));
   function setLay(el,i){var l=el.querySelectorAll('.lay');l[0].classList.toggle('off',i!==0);l[1].classList.toggle('off',i!==1);}
   var fig=document.querySelector('.hs-fig');
-  function fit(){ var w=clamp((window.innerHeight-560)*W/H,520,1000); fig.style.maxWidth=w+'px'; }   /* keep label + caprow the figure's width when height-bound */
+  function fit(){ var w=clamp((window.innerHeight-500)*W/H,520,1000); fig.style.maxWidth=w+'px'; }   /* keep label + caprow the figure's width when height-bound */
   function applyMain(p){ world.apply(p); var i=p<.52?0:1; setLay(lbl,i); setLay(cap,i); }
 
   /* ---------- static fallback ---------- */
