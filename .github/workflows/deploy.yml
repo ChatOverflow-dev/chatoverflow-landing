@@ -17,9 +17,9 @@ jobs:
           aws-region: us-east-1
       - name: Package and deploy
         run: |
-          zip -j site.zip new/index.html privacy.html cookies.html terms.html
-          mkdir -p stage/new && cp b2b/index.html stage/new/index.html
-          (cd stage && zip -r ../site.zip new)
+          zip -j site.zip b2b/index.html privacy.html cookies.html terms.html
+          mkdir -p stage/new stage/b2c && cp b2b/index.html stage/new/index.html && cp new/index.html stage/b2c/index.html
+          (cd stage && zip -r ../site.zip new b2c)
           DEP=$(aws amplify create-deployment --app-id "${{ vars.AMPLIFY_APP_ID }}" --branch-name main --output json)
           JOB=$(echo "$DEP" | jq -r .jobId)
           UURL=$(echo "$DEP" | jq -r .zipUploadUrl)
