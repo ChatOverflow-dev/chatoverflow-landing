@@ -1,0 +1,1513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatOverflow · Your coding agents should learn from your engineering team</title>
+<meta name="description" content="ChatOverflow learns from your team's past coding-agent sessions and gives the relevant finding to the next engineer's agent while they work.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDI0IDEwMjQiIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxzdHlsZT4uY3tmaWxsOiMxZjFiMTd9QG1lZGlhKHByZWZlcnMtY29sb3Itc2NoZW1lOmRhcmspey5je2ZpbGw6I2YzZWVlNH19PC9zdHlsZT4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTIyLjYgLTE0Mi40KSBzY2FsZSgyKSI+CiAgICA8cGF0aCBjbGFzcz0iYyIgZD0iCk03MTkuMzQ0OTcxLDMwMy43NzQ1OTcKCUM3MjIuMjYwMjU0LDM2Mi4wOTQzMzAgNzA1LjU3MjAyMSw0MTIuNTc4ODU3IDY2My40MTUxNjEsNDUzLjU5NjY0OQoJQzYyOS40MzcxMzQsNDg2LjY1NjYxNiA1ODguNTg5MTcyLDUwNS44MDA3NTEgNTQxLjgzNjczMSw1MTAuODAyNzk1CglDNDcyLjMxNTgyNiw1MTguMjQwODQ1IDQxMC45NTY0MjEsNDk5LjM2MDI5MSAzNjEuODA4MzUwLDQ0OC4xNzkzNTIKCUMzMzQuOTQyODEwLDQyMC4yMDI2MDYgMzE5LjM4OTUyNiwzODYuMjY5Mjg3IDMxNi42NDkyOTIsMzQ3LjEzNjEzOQoJQzMxMi4zNDY3MTAsMjg1LjY5MTEwMSAzMzYuMTAzNjM4LDIzNS45NzMzODkgMzgxLjYwMjcyMiwxOTYuMTU5MTAzCglDNDE3LjcxNzM3NywxNjQuNTU2NzMyIDQ2MC41MTg4OTAsMTQ4LjA1MDE3MSA1MDguMTczODU5LDE0My41NDkxNjQKCUM1MjIuMzgyMzg1LDE0Mi4yMDcxNjkgNTM2LjQ0ODU0NywxNDMuMDEyNjk1IDU1MC41MjI3NjYsMTQ0LjY0MDUzMwoJQzU1Ni4yMjkwNjUsMTQ1LjMwMDUyMiA1NjEuMzE4MzU5LDE0Ny40NzgwNzMgNTYzLjU5MjQwNywxNTMuMjY4MTU4CglDNTY2LjA3NjIzMywxNTkuNTkyMzAwIDU2NC4zODMxNzksMTY1LjM5NTc1MiA1NjAuMzIwMTI5LDE3MC41NTI1MDUKCUM1NTUuMzIwODYyLDE3Ni44OTc1OTggNTQ4LjY4Njg5MCwxNzkuNzA3NTA0IDU0MC42MjgyMzUsMTc5LjM4MjgyOAoJQzUyMC4zOTAwMTUsMTc4LjU2NzQ5MCA1MDAuMzEyODY2LDE3OS42OTUxOTAgNDgwLjczNjM1OSwxODUuMzI2MDY1CglDNDM0LjA5NTYxMiwxOTguNzQxNDcwIDM5Ny41MTg1ODUsMjI1LjAzODI2OSAzNzYuOTg2ODQ3LDI2OS45OTc0OTgKCUMzNTIuODAzMDA5LDMyMi45NTM3OTYgMzY2Ljg0ODg3NywzNzkuODY4MTk1IDQxMS4wMzQ1MTUsNDE3LjgyMDcwOQoJQzQzMS42NDA5MDAsNDM1LjUyMDIwMyA0NTUuNTc4ODg4LDQ0Ni41MTUxNjcgNDgyLjEzODczMyw0NTEuMTU3NjU0CglDNTU0LjkyMzg4OSw0NjMuODc5OTc0IDYyOS45NjU0NTQsNDI1LjgzNTE0NCA2NTUuMjY2Mjk2LDM1NC43Mzk1MDIKCUM2NjEuMDUzMjg0LDMzOC40Nzc5OTcgNjY0LjQ2MDAyMiwzMjEuNzMzMjE1IDY2My43Njc2MzksMzA0LjM0NjY0OQoJQzY2My4zMjk0NjgsMjkzLjM0MzIzMSA2NjcuMjkwNzcxLDI4NC42OTU5MjMgNjc3LjQ3OTYxNCwyNzkuODExNTU0CglDNjg4LjkzMTc2MywyNzQuMzIxNjI1IDcwMC40MDY0MzMsMjczLjk0MzY5NSA3MTEuMDQ2MTQzLDI4MS43OTIzODkKCUM3MTguMjE1ODgxLDI4Ny4wODEyOTkgNzE5LjI5NjA4MiwyOTUuMDgzOTIzIDcxOS4zNDQ5NzEsMzAzLjc3NDU5Nwp6Ii8+CiAgICA8cGF0aCBmaWxsPSIjRkY5MDA2IiBkPSIKTTY0MC43OTE2MjYsMjE4LjQzMDU4OAoJQzY0My4yMDE1MzgsMjA1Ljg5MzczOCA2NTEuMDgzNjc5LDE5OS4wOTY2MTkgNjYyLjY0OTUzNiwxOTYuOTI1NTk4CglDNjc2LjEzNjg0MSwxOTQuMzkzODkwIDY4Ny44NzE1ODIsMTk4LjE1NDY0OCA2OTUuODcyMTkyLDIwOS44NTI4NDQKCUM3MDIuOTI0MDcyLDIyMC4xNjM5NDAgNjk5LjkzNzY4MywyMzQuOTEzODM0IDY4OS43ODM4NzUsMjQyLjkwNjI1MAoJQzY3Mi42MTg2NTIsMjU2LjQxNzU0MiA2NDYuMjM2Mzg5LDI0Ny45MTk0MDMgNjQxLjIyNzkwNSwyMjcuMjk1OTc1CglDNjQwLjU0Njc1MywyMjQuNDkxMjI2IDY0MC43NDEyMTEsMjIxLjY4NjgyOSA2NDAuNzkxNjI2LDIxOC40MzA1ODgKeiIvPgogICAgPHBhdGggZmlsbD0iI0ZGOTAwNiIgZD0iCk01OTAuMjc1MDg1LDE4Mi4yNDEwODkKCUM1ODcuNzQ4NDc0LDE3MC4zNzY3NDAgNTk4LjQ0MTIyMywxNTguNTE5MDczIDYxMy4wMjAxNDIsMTU5LjE1Mzk5MgoJQzYyMi4yNDA3MjMsMTU5LjU1NTU0MiA2MzAuNDMzODk5LDE2My4xMDgzNjggNjM0LjAwNzA4MCwxNzIuNTc5NTkwCglDNjM4LjMxOTQ1OCwxODQuMDEwMDU2IDYyOS42MTA2NTcsMTk2LjExMTk2OSA2MTYuMDE0NzcxLDE5OC4xMjgzNTcKCUM2MDMuOTg1MDQ2LDE5OS45MTI0OTEgNTk0LjUwMDQ4OCwxOTQuMTgyNDgwIDU5MC4yNzUwODUsMTgyLjI0MTA4OQp6Ii8+CiAgPC9nPgo8L3N2Zz4K">
+<meta name="theme-color" content="#FAFAF8">
+<noscript><style>.ft-stage{display:none}</style></noscript>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ---------- ONE theme. Light tokens on :root, dark sections carry .dark ---------- */
+  :root{
+    --paper:#FAFAF8; --ink:#1A1917; --faded:#736A5F; --subtext:#4A4641; --muted:#6B6762;
+    --hair:#E7E5E1; --hair2:#D6D3CD; --raise:#FFFFFF; --raise2:#F3F2EF;
+    --orange:#F48024; --signal:#D9691A; --btnhover:#33302B;
+    --termbg:#1C1B19; --termline:rgba(26,25,23,.16);
+    --tink:#ECEAE6; --tmid:rgba(236,234,230,.72); --tdim:rgba(236,234,230,.42); --thair:rgba(236,234,230,.09);
+    --ok:#8FBE78; --bad:#E5705A;
+    --tbar:rgba(236,234,230,.15); --tpill:rgba(236,234,230,.30); --tshadow:rgba(31,27,23,.16);
+    --lit1:rgba(26,25,23,.16);
+    --tsh:0 14px 28px -18px rgba(26,25,23,.35);
+    --sans:"Instrument Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --ease:cubic-bezier(.33,1,.68,1);
+  }
+  .dark{
+    --paper:#131211; --ink:#ECEAE6; --faded:#948A7C; --subtext:#BDB8B0; --muted:#A09B93;
+    --hair:#26241F; --hair2:#36332D; --raise:#1A1816; --raise2:#1F1D1A;
+    --orange:#FF8C39; --signal:#FF8C39; --btnhover:#D8D4CD;
+    --termbg:#0E0D0C; --termline:rgba(236,234,230,.10);
+    --lit1:rgba(236,234,230,.17); --tshadow:rgba(0,0,0,.6);
+    --tsh:0 14px 28px -18px rgba(0,0,0,.6);
+    background:var(--paper); color:var(--ink);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{height:100%; overflow-x:clip; scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{background:var(--paper); color:var(--ink); overflow-x:clip; font-family:var(--sans); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; font-size:16px; line-height:1.55}
+  a{color:inherit}
+  button{font:inherit; color:inherit}
+  ::selection{background:rgba(244,128,36,.25)}
+  :focus-visible{outline:2px solid var(--signal); outline-offset:3px; border-radius:4px}
+
+  .wrap{max-width:1180px; margin:0 auto; padding-left:clamp(22px,5vw,44px); padding-right:clamp(22px,5vw,44px)}
+  section{position:relative; border-top:1px solid var(--hair); background:var(--paper); color:var(--ink); scroll-margin-top:62px}
+  .pad{padding-top:120px; padding-bottom:120px}
+  @media (max-width:860px){ .pad{padding-top:88px; padding-bottom:88px} }
+  body.solo > *:not(.solo-keep){display:none !important}
+  body.solo > .solo-keep{padding-top:62px}
+
+  /* ---------- type ---------- */
+  .eyebrow{font:400 12px/1 var(--mono); letter-spacing:.04em; color:var(--faded); white-space:pre}
+  h2.sec{font-weight:600; letter-spacing:-.03em; line-height:1.06; font-size:clamp(28px,3.4vw,40px); color:var(--ink); text-wrap:balance; max-width:24ch}
+  .lede{margin-top:16px; font-size:18px; line-height:1.55; color:var(--muted); max-width:56ch; letter-spacing:-.01em}
+  p.body{font-size:16px; line-height:1.6; color:var(--subtext); max-width:58ch}
+  p.body + p.body{margin-top:16px}
+  .small{font-size:13.5px; line-height:1.55; color:var(--faded)}
+  .two{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(32px,5vw,64px); align-items:start}
+  @media (min-width:861px){ .two>:last-child{padding-top:6px} }
+  @media (max-width:860px){ .two{grid-template-columns:1fr; gap:36px} }
+
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex; align-items:center; gap:10px; height:44px; padding:0 18px; border-radius:9px; text-decoration:none; font-weight:600; font-size:15px; letter-spacing:-.01em; border:1px solid transparent; transition:transform .12s var(--ease), background .25s var(--ease), border-color .15s var(--ease), color .15s var(--ease); white-space:nowrap}
+  .btn:active{transform:scale(.985)}
+  .btn-p{background:var(--ink); color:var(--paper)}
+  .btn-p:hover{background:var(--btnhover); transition-duration:.05s}
+  .btn-s{height:auto; padding:0; border:0; border-radius:0; font-weight:500; color:var(--muted); gap:8px}
+  .btn-s:hover{color:var(--ink)}
+  .btn-s .ar{transition:transform .2s var(--ease)}
+  .btn-s:hover .ar{transform:translateY(3px)}
+
+  /* ---------- nav ---------- */
+  .nav{position:fixed; top:0; left:0; right:0; z-index:50; height:62px; background:color-mix(in srgb, var(--paper) 84%, transparent); -webkit-backdrop-filter:saturate(1.2) blur(10px); backdrop-filter:saturate(1.2) blur(10px); border-bottom:1px solid transparent; transition:background .25s ease, border-color .25s ease, color .25s ease}
+  .nav.scrolled{border-bottom-color:var(--hair)}
+  .nav .wrap{height:100%; display:flex; align-items:center; justify-content:space-between; gap:24px}
+  .wordmark{display:inline-flex; align-items:center; gap:9px; font:700 15px/1 var(--mono); letter-spacing:-.01em; color:var(--ink); text-decoration:none}
+  .wordmark .comark{width:24px; height:24px; display:block; flex:none}
+  .nav-links{display:flex; align-items:center; gap:28px; font-size:14px; color:var(--muted)}
+  .nav-links a{text-decoration:none; position:relative; padding:4px 0; transition:color .15s}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-links a::after{content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--ink); transition:right .22s var(--ease)}
+  .nav-links a:hover::after{right:0}
+  .nav .btn{height:36px; padding:0 14px; font-size:13.5px; border-radius:8px}
+  @media (max-width:760px){ .nav-links a{display:none} }
+
+  /* ---------- shared terminal ---------- */
+  .term{background:var(--termbg); border:1px solid var(--termline); border-radius:12px; overflow:hidden; box-shadow:var(--tsh); font-family:var(--mono); color:var(--tmid)}
+  .term .bar{display:flex; align-items:center; gap:8px; padding:11px 15px; border-bottom:1px solid var(--thair); background:rgba(255,255,255,.02); font-size:11.5px; color:var(--tdim); letter-spacing:.01em}
+  .term .bar .rt{margin-left:auto; display:inline-flex; align-items:center; gap:6px; font-size:11px}
+  .term .bar .tl{display:inline-flex; gap:6px; margin-right:6px} .term .bar .tl i{width:10px; height:10px; border-radius:50%; display:block; opacity:.9}
+  .term .bar .tl i:nth-child(1){background:#FF5F57} .term .bar .tl i:nth-child(2){background:#FEBC2E} .term .bar .tl i:nth-child(3){background:#28C840}
+  .term .bar .rt.live::before{content:""; width:5px; height:5px; border-radius:50%; background:var(--ok)}
+  .term .bar .tt{display:inline-grid} .term .bar .tt .lay{grid-area:1/1; transition:opacity .25s ease} .term .bar .tt .lay.off{opacity:0}
+  .term .ln{font-size:13px; line-height:1.85; white-space:pre-wrap; word-break:break-word}
+  .term .p{color:var(--signal)}
+  .term .t{color:var(--tink)}
+  .term .d{color:var(--tdim)}
+  .term .ok{color:var(--ok)}
+  .caret{display:inline-block; width:7px; height:14px; background:var(--tmid); vertical-align:-2px; margin-left:2px; animation:blink 1.1s steps(2,end) infinite}
+  @keyframes blink{to{opacity:0}}
+  .fx{border-left:2px solid var(--signal); background:rgba(244,128,36,.07); padding:8px 12px; margin:6px 0 4px; border-radius:0 6px 6px 0}
+  .fx .fxh{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:4px 12px; font-size:11.5px; color:var(--tdim); letter-spacing:.02em; margin-bottom:2px}
+  .fx .fxh .dia{color:var(--signal); font-size:11px}
+  .fx .ln{color:var(--tink)}
+
+  /* ---------- caption rows (every figure, nothing else) ---------- */
+  .caprow{display:flex; align-items:baseline; justify-content:space-between; gap:28px; margin-top:24px; border-top:1px solid var(--hair); padding-top:14px}
+  .figno{font:400 11.5px/1.5 var(--mono); color:var(--faded); white-space:nowrap; letter-spacing:.02em}
+  .figno .st{display:inline-grid; color:var(--ink)} .figno .st .lay{grid-area:1/1; transition:opacity .28s ease} .figno .st .lay.off{opacity:0}
+  .figno .st b{font-weight:400; color:var(--signal)}
+  .cap{font-size:15px; color:var(--subtext); letter-spacing:-.01em; max-width:70ch; text-align:right; min-height:46px; position:relative}
+  .cap .lay{transition:opacity .28s ease}
+  .cap .lay.off{opacity:0; position:absolute; right:0; top:0; pointer-events:none}
+  @media (max-width:860px){ .caprow{flex-direction:column; gap:8px} .cap{text-align:left} .cap .lay.off{right:auto; left:0} }
+
+  /* ---------- reveals ---------- */
+  .rv{opacity:0; transform:translateY(6px); transition:opacity .5s ease, transform .5s var(--ease)}
+  .rv.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion: reduce){ .rv{opacity:1; transform:none; transition:none} }
+
+  /* =========================================================
+     HERO (text only)
+     ========================================================= */
+  #hero{border-top:0; padding-top:calc(62px + 112px); padding-bottom:88px}
+  #hero h1{font-weight:600; letter-spacing:-.035em; line-height:1.02; font-size:clamp(36px,4.4vw,56px); color:var(--ink); max-width:19ch; text-wrap:balance}
+  #hero .lede{margin-top:18px}
+  #hero .ctas{display:flex; align-items:center; gap:22px; margin-top:28px; flex-wrap:wrap}
+  #hero .backed{display:flex; align-items:center; gap:12px; margin-top:44px; color:var(--faded)}
+  #hero .backed span{font:400 12px/1 var(--mono); letter-spacing:.04em}
+  #hero .backed span+span{display:block}
+  #hero .a16z{height:22px; width:auto; display:block}
+  @media (max-width:860px){ #hero{padding-top:calc(62px + 72px); padding-bottom:56px} #hero .a16z{height:20px} }
+     HERO FIELD (hf-): the block to paste into index.html
+     ========================================================= */
+  #hero{position:relative}
+  #hero .wrap{position:relative; z-index:1}
+  /* text column caps itself at 58% so the field on the right (40%) never touches it */
+  #hero .hf-txt{max-width:58%}
+  .hf{position:absolute; left:0; right:0; top:62px; bottom:0; z-index:0; pointer-events:none}
+  .hf-wrap{position:relative; height:100%; max-width:1180px; margin:0 auto; padding:0 clamp(22px,5vw,44px)}
+  .hf-c{position:absolute; top:0; bottom:0; right:clamp(22px,5vw,44px); width:calc((100% - 2*clamp(22px,5vw,44px)) * .40); height:100%; display:block}
+  /* LEFT variant: add class hf-left to #hero. Field sits in the left 40%, text starts at 44%. */
+  #hero.hf-left .hf-c{right:auto; left:clamp(22px,5vw,44px)}
+  #hero.hf-left .hf-txt{margin-left:auto; max-width:56%}
+  @media (max-width:860px){ .hf{display:none} #hero .hf-txt,#hero.hf-left .hf-txt{max-width:none; margin-left:0} }
+
+  /* =========================================================
+     AGENT STRIP
+     ========================================================= */
+  #agents .wrap{display:grid; grid-template-columns:120px minmax(0,1fr); column-gap:40px; align-items:center; padding-top:22px; padding-bottom:22px}
+  #agents{border-bottom:1px solid var(--hair)}
+  #agents .small{margin-top:6px}
+  .ag-row{display:flex; justify-content:space-between; align-items:center; gap:16px}
+  .ag{display:inline-flex; align-items:center; gap:8px; height:22px; color:var(--faded); transition:color .15s ease; font:500 13px/1 var(--mono); letter-spacing:-.01em; white-space:nowrap}
+  .ag:hover{color:var(--ink)}
+  .ag-g{width:20px; height:20px; display:block; flex:none}
+  @media (max-width:860px){ #agents .wrap{grid-template-columns:1fr; row-gap:18px} .ag-row{flex-wrap:wrap; justify-content:flex-start; gap:16px 28px} }
+  @media (max-width:520px){ .ag-row{display:grid; grid-template-columns:1fr 1fr} }
+
+  /* =========================================================
+     FIG 1: HANDOFF (light, pinned) : figure markup injected from prototype
+     ========================================================= */
+  /* =========================================================
+     SECTION 2: HANDOFF (pinned, 300vh)
+     ========================================================= */
+  .hs{position:relative;height:300vh;background:var(--paper);color:var(--ink)}
+  .hs-pin{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding-top:62px}
+  .hs-pin>.wrap{width:100%}
+  .hs-head{max-width:640px}
+  .hs-fig{margin-top:clamp(32px,6vh,64px);max-width:1000px}
+
+  .hs-lbl{display:inline-grid;font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;color:var(--ink);line-height:22px;height:22px}
+  .hs-lbl .lay{grid-area:1/1;white-space:nowrap;transition:opacity .28s ease}
+  .hs-lbl .lay.off{opacity:0}
+  .hs-lbl b{font-weight:400;color:var(--signal);font-size:10px;margin-right:7px;vertical-align:1px}
+
+  .hs-stage{margin-top:14px}
+  .hs-svg{display:block;width:100%;height:auto;max-height:calc(100dvh - 450px);overflow:visible}
+
+  .hs-caprow{margin-top:28px;border-top:1px solid var(--hair);padding-top:14px}
+  .hs-cap{display:inline-grid;font-size:15px;line-height:1.5;color:var(--subtext);letter-spacing:-.01em;min-height:24px}
+  .hs-caprow{display:flex;justify-content:space-between;align-items:baseline;gap:28px}
+  .hs-caprow .figno{flex:none}
+  .hs-cap{text-align:right}
+  @media (max-width:860px){ .hs-caprow{flex-direction:column;gap:8px} .hs-cap{text-align:left} }
+  .hs-cap .lay{grid-area:1/1;transition:opacity .28s ease}
+  .hs-cap .lay.off{opacity:0}
+
+  /* figure strokes: one language, 1.5px */
+  .hs-svg *{vector-effect:non-scaling-stroke}
+  .hs-svg .termg{filter:drop-shadow(0 14px 22px var(--tshadow))}
+  .hs-svg .term{fill:var(--termbg);stroke:var(--termline);stroke-width:1}
+  .hs-svg .tbar{stroke:var(--thair);stroke-width:1}
+  .hs-svg .dot{opacity:.9} .hs-svg .dot.d1{fill:#FF5F57} .hs-svg .dot.d2{fill:#FEBC2E} .hs-svg .dot.d3{fill:#28C840}
+  .hs-svg .bar{fill:var(--tbar)}
+  .hs-svg .pill{fill:var(--tpill)}
+  .hs-svg .obar{fill:var(--signal)}
+  .hs-svg .caret{fill:var(--tmid);animation:blink 1.1s steps(2,end) infinite}
+  @keyframes blink{to{opacity:0}}
+  .hs-svg .badge{fill:var(--paper);stroke:var(--hair2);stroke-width:1.5}
+  .hs-svg .person{fill:none;stroke:var(--ink);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .hs-svg .vline{fill:none;stroke:var(--muted);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .hs-svg .conn,.hs-svg .head{fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .hs-svg .pulse{fill:none;stroke-width:4;stroke-linecap:round}
+
+  /* static fallback: <860px and prefers-reduced-motion. Two stacked figures, before / with. */
+  .hs-static{display:none}
+  .hs-sblock+.hs-sblock{margin-top:44px}
+  .hs-sblock .hs-svg{margin-top:12px;max-height:none}
+  .hs-sblock .hs-scap{margin-top:16px;font-size:14.5px;line-height:1.5;color:var(--subtext);letter-spacing:-.01em}
+  body.static .hs{height:auto}
+  body.static .hs-pin{position:static;height:auto;overflow:visible;padding:100px 0 56px}
+  body.static .hs-fig>.hs-lbl,body.static .hs-stage,body.static .hs-caprow{display:none}
+  body.static .hs-static{display:block}
+  body.static .hs-fig{margin-top:40px}
+    body.shot .hs{height:auto}
+  body.shot .hs-pin{position:relative}
+  body.solo .hs{height:auto} body.solo .hs-pin{position:relative}
+  @media (max-width:860px){ .hs-head{max-width:none} }
+  @media (prefers-reduced-motion: reduce){ .hs-svg .caret{animation:none} .hs-lbl .lay,.hs-cap .lay{transition:none} }
+
+  /* =========================================================
+     FIG 2: SKILLS, AUTOMATED (dark)
+     ========================================================= */
+  #skills{height:280vh}
+  #skills .sk-pin{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden; background:var(--paper); display:flex; flex-direction:column; justify-content:center; padding-top:62px}
+  #skills .sk-pin>.wrap{width:100%; position:relative; z-index:1}
+  #skills .row{transition:opacity .4s ease}
+  #skills .row.dim{opacity:.38}
+  #skills .rh .dia{color:var(--signal); font-size:10px; margin-right:7px; vertical-align:1px}
+  #skills .vb{position:absolute; top:0; bottom:0; right:-170px; width:720px; pointer-events:none; z-index:0; overflow:hidden; --vb-ink:.11; --vb-sig:.34; --vb-dn:.12; --vb-edge:.32}
+  #skills .vb svg{position:absolute; inset:0; width:100%; height:100%; display:block; overflow:visible}
+  #skills .vb line,#skills .vb circle{stroke-linecap:round; fill:none}
+  #skills .vb .vb-ink{stroke:var(--ink); stroke-opacity:var(--vb-ink)}
+  #skills .vb .vb-sig{stroke:var(--signal); stroke-opacity:var(--vb-sig)}
+  #skills .vb .vb-dn{stroke:var(--ink); stroke-opacity:var(--vb-dn)}
+  #skills .vb .vb-edge{stroke:var(--faded); stroke-opacity:var(--vb-edge); stroke-width:1; stroke-linecap:butt}
+  #skills .vb .vb-row,#skills .vb .vb-down,#skills .vb .vb-edge{opacity:0}
+  @media (max-width:860px){ #skills .vb{width:340px; right:-120px; --vb-ink:.09; --vb-sig:.28; --vb-dn:.10} }
+  @media (prefers-reduced-motion: reduce){ #skills .vb .vb-row,#skills .vb .vb-down{opacity:1} #skills .vb .vb-edge{display:none} }
+  #skills .sk-head{max-width:640px}
+  #skills .fig{margin-top:clamp(84px,10vh,104px)}
+  #skills .fig-inner{position:relative}
+  #skills .row{display:grid; grid-template-columns:170px minmax(0,1fr); column-gap:24px; align-items:start}
+  #skills .row + .row{margin-top:64px}
+  #skills .rh{font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--faded); padding-top:6px; white-space:nowrap}
+  #skills .r2 .rh{color:var(--ink)}
+  #skills .tl{position:relative; min-width:0}
+  #skills .cells,#skills .labels{display:grid; grid-template-columns:78fr 118fr 228fr 120fr 194fr 112fr; column-gap:14px}
+  #skills .cells{position:relative; height:26px; align-items:center}
+  #skills .cell{display:flex; align-items:center; gap:6px; min-width:0; height:26px}
+  #skills .blk{position:relative; flex:2 1 0; height:26px; border-radius:4px; background:var(--hair); overflow:hidden}
+  #skills .blk.s{flex-grow:1} #skills .blk.m{flex-grow:3}
+  #skills .blk::after{content:""; position:absolute; inset:0; background:linear-gradient(90deg, var(--lit) 0, var(--lit) calc(var(--e,-30px) - 10px), transparent calc(var(--e,-30px) + 10px))}
+  #skills .r1{--lit:var(--lit1)}
+  #skills .r2{--lit:var(--signal)}
+  #skills .blk.tiny{flex:0 0 14px}
+  #skills .rest{flex:1 1 0; height:0; border-top:1px dashed var(--hair2)}
+  #skills .blk.stale{background:transparent; box-shadow:inset 0 0 0 1px var(--hair2); transition:background .5s ease, box-shadow .5s ease}
+  #skills .blk.stale::after{opacity:0; transition:opacity .5s ease}
+  #skills .cell.team{justify-content:space-between; gap:0}
+  #skills .dot{width:14px; height:14px; border-radius:50%; background:var(--hair); transition:background .28s var(--ease)}
+  #skills .r1 .dot.on{background:var(--lit1)}
+  #skills .r1 .dot.one.on{background:var(--signal)}
+  #skills .r2 .dot.on{background:var(--signal)}
+  #skills .votes{display:inline-flex; align-items:center; gap:9px; height:26px; padding:0 9px; border-radius:6px; box-shadow:inset 0 0 0 1px var(--hair2)}
+  #skills .votes svg{width:13px; height:13px; display:block}
+  #skills .votes .vu{fill:var(--hair); transition:fill .28s var(--ease)}
+  #skills .votes .vd{fill:none; stroke:var(--hair2); stroke-width:1.25; transition:stroke .28s var(--ease)}
+  #skills .votes.on .vu{fill:var(--signal)}
+  #skills .votes.on .vd{stroke:var(--faded)}
+  #skills .labels{margin-top:10px; font-family:var(--mono); font-size:11px; letter-spacing:.01em; line-height:1.4; color:var(--faded)}
+  #skills .lb{white-space:nowrap; transition:color .3s ease}
+  #skills .r1 .lb.on{color:var(--muted)}
+  #skills .r2 .lb.on{color:var(--ink)}
+  #skills .card{position:absolute; z-index:2; width:max-content; max-width:208px; padding:7px 10px 8px; border-radius:6px; background:var(--paper); box-shadow:inset 0 0 0 1px var(--hair2); font-family:var(--mono); font-size:11.5px; line-height:1.4; color:var(--faded); opacity:0; transform:translateY(6px); pointer-events:none; will-change:opacity,transform}
+  #skills .card b{display:block; font-weight:500; font-size:13px; letter-spacing:-.01em; color:var(--ink); margin-bottom:1px}
+  #skills .r2 .card b{color:var(--signal)}
+  #skills .r1 .card{bottom:calc(100% + 12px)}
+  #skills .r2 .card{top:calc(100% + 36px)}
+  #skills .card::before{content:""; position:absolute; left:11px; width:1px; height:8px; background:var(--hair2)}
+  #skills .r1 .card::before{top:100%}
+  #skills .r2 .card::before{bottom:100%}
+  #skills .card[data-align="right"]::before{left:auto; right:11px}
+  #skills .scan{position:absolute; top:-10px; bottom:-6px; width:1px; background:var(--faded); opacity:0; pointer-events:none}
+  #skills .caprow{margin-top:clamp(56px,9vh,96px)}
+  .nomo #skills *{transition:none !important}
+  @media (prefers-reduced-motion: reduce){ #skills *{transition:none !important} }
+  @media (max-width:860px){
+    #skills{height:auto}
+    #skills .sk-pin{position:static; height:auto; overflow:visible; padding:88px 0}
+    #skills .row.dim{opacity:1}
+    #skills .fig{margin-top:48px}
+    #skills .fig-scroll{overflow-x:auto; overflow-y:visible; margin-left:calc(-1*clamp(22px,5vw,44px)); margin-right:calc(-1*clamp(22px,5vw,44px)); padding:0 clamp(22px,5vw,44px); scrollbar-width:none}
+    #skills .fig-scroll::-webkit-scrollbar{display:none}
+    #skills .fig-inner{min-width:860px; padding-bottom:96px}
+    #skills .row{grid-template-columns:minmax(0,1fr); row-gap:14px}
+    #skills .rh{position:sticky; left:clamp(22px,5vw,44px); padding-top:0}
+    #skills .r1 .rh{margin-top:66px}
+    #skills .row + .row{margin-top:56px}
+    #skills .caprow{margin-top:20px}
+    #skills .cap{justify-content:flex-start}
+  }
+
+  /* =========================================================
+     FIG 3: HOW IT WORKS (light, pinned)
+     ========================================================= */
+  #howit{height:300vh}
+  .ht-pin{position:sticky; top:0; height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column; justify-content:center; padding-top:62px}
+  .ht-pin>.wrap{width:100%}
+  .ht-head{max-width:640px}
+  .ht-grid{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:clamp(32px,5vw,64px); align-items:center; margin-top:48px}
+  .ht-stack{position:relative; min-height:200px}
+  .ht-step{position:absolute; inset:0; opacity:0; transform:translateY(10px); transition:opacity .2s ease-out, transform .45s var(--ease); pointer-events:none}
+  .ht-step.on{opacity:1; transform:none; transition-delay:.15s}
+  .ht-no{font:400 12px/1 var(--mono); color:var(--faded); white-space:pre}
+  .ht-step h3{font-size:22px; font-weight:600; letter-spacing:-.02em; color:var(--ink); margin-top:14px; line-height:1.25; text-wrap:balance; max-width:22ch}
+  .ht-step p{font-size:16px; line-height:1.6; color:var(--muted); margin-top:12px; max-width:40ch}
+  .ht-body{height:246px; overflow:hidden; position:relative; padding:0 18px}
+  .ht-scroll{transition:transform .6s var(--ease)}
+  .ht-stage{min-height:246px; display:flex; flex-direction:column; justify-content:flex-start; padding-top:14px}
+  .ht-stage.led-stage{padding-top:6px}
+  .led{display:flex; flex-direction:column}
+  .led .lh{font-size:11px; color:var(--tdim); padding:2px 0 8px}
+  .led .lr{display:grid; grid-template-columns:44px 1fr; gap:12px; padding:6px 0; border-top:1px solid var(--thair); font-size:12.5px; line-height:1.5; color:var(--tmid)}
+  .led .lr .ts{color:var(--tdim)}
+  .led .lr .tx{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+  .led .lr .tx::before{content:"\25C6"; color:var(--signal); font-size:9px; margin-right:7px}
+  .led .lr.new{animation:ledin .38s var(--ease); overflow:hidden}
+  @keyframes ledin{from{opacity:0; max-height:0; padding-top:0; padding-bottom:0} to{opacity:1; max-height:70px; padding-top:6px; padding-bottom:6px}}
+  @media (max-width:820px){
+    #howit{height:auto}
+    .ht-pin{position:static; height:auto; padding:88px 0 64px}
+    .ht-grid{grid-template-columns:1fr; gap:30px; margin-top:34px}
+    .ht-stack{min-height:0}
+    .ht-step{position:static; opacity:1 !important; transform:none !important; margin-bottom:30px}
+    .ht-body{height:auto}
+    .ht-stage{min-height:0; padding:14px 0; border-top:1px solid var(--thair)}
+    .ht-stage:first-child{border-top:0}
+    .ht-scroll{transform:none !important}
+  }
+
+  /* =========================================================
+     WHAT CHANGES (dark)
+     ========================================================= */
+  .grid2{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--hair); border-left:1px solid var(--hair); margin-top:48px}
+  .grid2 .cell{padding:30px 32px 32px 28px; border-bottom:1px solid var(--hair); border-right:1px solid var(--hair)}
+  .grid2 .cell h3{font-size:19px; font-weight:600; letter-spacing:-.02em; color:var(--ink); line-height:1.25}
+  .grid2 .cell p{margin-top:10px; font-size:15.5px; line-height:1.55; color:var(--muted); max-width:40ch}
+  .proof{margin-top:56px}
+  .pc-head{display:flex; align-items:baseline; gap:18px; flex-wrap:wrap; padding-bottom:16px; border-bottom:1px solid var(--hair); font-family:var(--mono); font-size:12.5px}
+  .pc-head .pc-k{color:var(--ink)} .pc-head .pc-v{color:var(--faded)}
+  .proof .stats{display:flex; gap:56px; font-family:var(--mono); margin-top:28px; flex-wrap:wrap}
+  .proof .stat b i{font-style:normal; font-size:18px; color:var(--faded); vertical-align:top; margin-left:2px}
+  .pc-note{margin-top:22px; max-width:60ch}
+  .proof .stat b{display:block; font-weight:500; font-size:40px; letter-spacing:-.03em; color:var(--ink); line-height:1; font-variant-numeric:tabular-nums}
+  .proof .stat span{display:block; margin-top:8px; font-size:12px; color:var(--faded); letter-spacing:.02em}
+  @media (max-width:760px){ .grid2{grid-template-columns:1fr} }
+
+  /* =========================================================
+     DESIGN PARTNERS (light)
+     ========================================================= */
+  .scope{margin-top:26px; padding-top:14px; border-top:1px solid var(--hair); font-family:var(--mono); font-size:12.5px; color:var(--ink); line-height:1.8}
+  .scope .k{color:var(--faded); margin-right:14px}
+  .scope span:not(.k){margin-right:14px}
+
+  /* =========================================================
+     FINAL CTA + PRIVACY (dark)
+     ========================================================= */
+  #final .ctas{display:flex; align-items:center; gap:22px; margin-top:28px; flex-wrap:wrap}
+  #final .alt{font-size:14.5px; color:var(--muted)}
+  #final .alt a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--hair2)}
+  #final .alt a:hover{border-bottom-color:var(--ink)}
+  #final .priv{margin-top:72px; padding-top:40px; border-top:1px solid var(--hair)}
+  #final .priv h3{font-size:22px; font-weight:600; letter-spacing:-.02em; color:var(--ink); line-height:1.25}
+  #final .priv>:last-child{padding-top:4px !important}
+
+  /* ---------- footer: the mark rasterised into terminal cells ---------- */
+  .ft{position:relative; border-top:1px solid var(--hair); padding-bottom:40px; font:500 12px/1.7 var(--mono); color:var(--faded)}
+  .ft a{color:var(--faded); text-decoration:none}
+  .ft a:hover{color:var(--ink)}
+  /* the mark: canvas sits on the container, the ring's centre is the hairline below it */
+  .ft-stage{position:relative; height:300px; overflow:hidden; touch-action:pan-y; user-select:none; -webkit-user-select:none}
+  .ft-canvas{display:block; width:100%; height:100%}
+  .ft-bottom{border-top:1px solid var(--hair); padding-top:26px}
+  .ft-row{display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap}
+  .ft-wm{display:inline-flex; align-items:center; gap:9px; background:none; border:0; cursor:pointer; font:700 15px/1 var(--mono); color:var(--ink); letter-spacing:-.01em; padding:0}
+  .ft-wm .comark{width:22px; height:22px; display:block}
+  .ft-wm i{font-style:normal; color:var(--faded)}
+  .ft-links{display:flex; gap:22px; flex-wrap:wrap}
+  .ft-tag{margin-top:18px}
+  @media (max-width:860px){ .ft-stage{height:180px} .ft-bottom{padding-top:22px} }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="wordmark" href="#top" aria-label="ChatOverflow"><svg class="comark" viewBox="0 0 1024 1024" aria-hidden="true"><g transform="translate(-522.6 -142.4) scale(2)"><path fill="currentColor" d="M719.344971,303.774597 C722.260254,362.094330 705.572021,412.578857 663.415161,453.596649 C629.437134,486.656616 588.589172,505.800751 541.836731,510.802795 C472.315826,518.240845 410.956421,499.360291 361.808350,448.179352 C334.942810,420.202606 319.389526,386.269287 316.649292,347.136139 C312.346710,285.691101 336.103638,235.973389 381.602722,196.159103 C417.717377,164.556732 460.518890,148.050171 508.173859,143.549164 C522.382385,142.207169 536.448547,143.012695 550.522766,144.640533 C556.229065,145.300522 561.318359,147.478073 563.592407,153.268158 C566.076233,159.592300 564.383179,165.395752 560.320129,170.552505 C555.320862,176.897598 548.686890,179.707504 540.628235,179.382828 C520.390015,178.567490 500.312866,179.695190 480.736359,185.326065 C434.095612,198.741470 397.518585,225.038269 376.986847,269.997498 C352.803009,322.953796 366.848877,379.868195 411.034515,417.820709 C431.640900,435.520203 455.578888,446.515167 482.138733,451.157654 C554.923889,463.879974 629.965454,425.835144 655.266296,354.739502 C661.053284,338.477997 664.460022,321.733215 663.767639,304.346649 C663.329468,293.343231 667.290771,284.695923 677.479614,279.811554 C688.931763,274.321625 700.406433,273.943695 711.046143,281.792389 C718.215881,287.081299 719.296082,295.083923 719.344971,303.774597 z"/><path fill="#FF9006" d="M640.791626,218.430588 C643.201538,205.893738 651.083679,199.096619 662.649536,196.925598 C676.136841,194.393890 687.871582,198.154648 695.872192,209.852844 C702.924072,220.163940 699.937683,234.913834 689.783875,242.906250 C672.618652,256.417542 646.236389,247.919403 641.227905,227.295975 C640.546753,224.491226 640.741211,221.686829 640.791626,218.430588 z"/><path fill="#FF9006" d="M590.275085,182.241089 C587.748474,170.376740 598.441223,158.519073 613.020142,159.153992 C622.240723,159.555542 630.433899,163.108368 634.007080,172.579590 C638.319458,184.010056 629.610657,196.111969 616.014771,198.128357 C603.985046,199.912491 594.500488,194.182480 590.275085,182.241089 z"/></g></svg><span>ChatOverflow</span></a>
+    <div class="nav-links">
+      <a href="#howit">How it works</a>
+      <a href="#partners">Design partners</a>
+      <a class="btn btn-p" href="mailto:founders@chatoverflow.dev?subject=ChatOverflow%20design%20partner&amp;body=Engineers%20using%20agents%20weekly%3A%0AAgents%20we%20use%3A%0AOne%20thing%20we%20keep%20re-explaining%20to%20agents%3A%0A">Talk to us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <a id="top"></a>
+  <div class="hf" aria-hidden="true"><div class="hf-wrap"><canvas class="hf-c" id="hf"></canvas></div></div>
+  <div class="wrap">
+    <div class="hf-txt">
+    <h1>Your coding agents should learn from your engineering team.</h1>
+    <p class="lede">ChatOverflow learns from your team’s past Claude Code and Codex sessions and gives the relevant finding to the next engineer’s agent while they work.</p>
+    <div class="ctas">
+      <a class="btn btn-p" href="mailto:founders@chatoverflow.dev?subject=ChatOverflow%20design%20partner&amp;body=Engineers%20using%20agents%20weekly%3A%0AAgents%20we%20use%3A%0AOne%20thing%20we%20keep%20re-explaining%20to%20agents%3A%0A">Become a design partner</a>
+      <a class="btn btn-s" href="#howit">See how it works <span class="ar">&darr;</span></a>
+    </div>
+    <div class="backed"><span>Backed by</span><span><svg class="a16z" role="img" aria-label="a16z Speedrun" viewBox="0 0 3081 427" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g>
+<path d="M2808.93 141.799L2726.12 285.235C2721.52 293.674 2710.43 301.011 2701.12 301.061H2478.85C2472.82 301.061 2469.91 298.37 2469.91 292.989C2469.91 290.549 2470.39 288.176 2472.1 285.252L2554.9 141.815C2559.5 133.376 2570.6 126.039 2579.91 125.989H2659.29C2665.32 125.989 2668.23 128.68 2668.23 134.061C2668.23 136.501 2667.74 138.874 2666.04 141.799L2592.36 269.426C2590.9 272.35 2590.02 274.874 2590.02 277.314C2590.02 282.678 2593.04 285.235 2599.09 285.235C2603.45 285.235 2607.92 283.898 2612.76 280.723C2617.61 277.548 2621.44 273.804 2624.09 269.426L2697.79 141.815C2702.39 133.376 2713.49 126.039 2722.79 125.989H2802.18C2808.21 125.989 2811.12 128.68 2811.12 134.061C2811.12 136.501 2810.63 138.874 2808.93 141.799ZM2520.43 173.985L2539.03 141.799C2540.73 138.857 2541.22 136.501 2541.22 134.061C2541.22 128.68 2538.31 125.989 2532.28 125.989H2310.01C2300.7 126.039 2289.6 133.359 2285.01 141.815L2202.2 285.252C2200.49 288.193 2200.01 290.549 2200.01 292.989C2200.01 298.37 2202.92 301.061 2208.95 301.061H2288.33C2297.64 300.994 2308.74 293.674 2313.33 285.235L2387.02 157.625C2389.69 153.246 2393.52 149.486 2398.35 146.327C2403.18 143.152 2407.66 141.815 2412.02 141.815C2418.07 141.815 2421.09 144.372 2421.09 149.737C2421.09 152.177 2420.21 154.7 2418.75 157.625L2409.29 174.019C2407.59 176.96 2407.1 179.316 2407.1 181.756C2407.1 187.137 2410.01 189.828 2416.04 189.828H2495.43C2504.74 189.778 2515.83 182.458 2520.43 174.002V173.985ZM1458.73 141.782L1375.92 285.218C1371.32 293.658 1360.23 300.994 1350.92 301.044L1239.78 300.994C1230.47 301.044 1219.38 308.364 1214.78 316.82L1156.22 418.26C1152.85 424.126 1149.47 427.017 1146.08 427.017C1143.91 427.017 1142.57 425.63 1141.25 423.641L1097.78 348.405C1096.58 345.965 1095.76 342.773 1095.76 339.113C1095.76 333.482 1096.68 328.602 1099.34 324.19L1204.69 141.799C1209.28 133.359 1220.38 126.023 1229.69 125.973H1451.96C1457.99 125.973 1460.9 128.663 1460.9 134.044C1460.9 136.484 1460.42 138.857 1458.71 141.782H1458.73ZM1340.79 149.703C1340.79 144.339 1337.77 141.782 1331.72 141.782C1327.35 141.782 1322.89 143.119 1318.05 146.294C1313.2 149.469 1309.37 153.213 1306.72 157.591L1242.16 269.392C1240.7 272.317 1239.82 274.84 1239.82 277.28C1239.82 282.645 1242.84 285.201 1248.89 285.201C1253.25 285.201 1257.72 283.865 1262.56 280.689C1267.41 277.514 1271.24 273.771 1273.89 269.392L1338.45 157.591C1339.91 154.667 1340.79 152.143 1340.79 149.703ZM1105.55 285.218L1142.39 221.43C1144.09 218.488 1144.57 216.132 1144.57 213.692C1144.57 208.311 1141.67 205.62 1135.63 205.62H1024.5C1018.45 205.62 1015.42 203.064 1015.42 197.699C1015.42 195.259 1016.31 192.736 1017.76 189.811L1036.36 157.608C1039.04 153.229 1042.87 149.469 1047.7 146.311C1052.52 143.136 1057 141.799 1061.37 141.799C1067.42 141.799 1070.44 144.355 1070.44 149.72C1070.44 152.16 1069.55 154.683 1068.1 157.608L1058.64 174.002C1056.94 176.943 1056.45 179.3 1056.45 181.739C1056.45 187.121 1059.36 189.811 1065.39 189.811H1144.78C1154.08 189.761 1165.18 182.441 1169.78 173.985L1188.38 141.799C1190.08 138.857 1190.57 136.501 1190.57 134.061C1190.57 128.68 1187.66 125.989 1181.63 125.989H959.355C950.047 126.039 938.95 133.359 934.354 141.815L897.521 205.604C895.816 208.545 895.331 210.901 895.331 213.341C895.331 218.722 898.239 221.413 904.272 221.413H1015.41C1021.46 221.413 1024.48 223.97 1024.48 229.334C1024.48 231.774 1023.6 234.298 1022.14 237.222L1003.54 269.426C1000.87 273.804 997.041 277.564 992.211 280.723C987.381 283.898 982.903 285.235 978.541 285.235C972.491 285.235 969.466 282.678 969.466 277.314C969.466 274.874 970.352 272.35 971.806 269.426L981.265 253.031C982.969 250.09 983.454 247.734 983.454 245.294C983.454 239.913 980.546 237.222 974.513 237.222H895.131C885.822 237.272 874.725 244.592 870.13 253.048L851.529 285.252C849.824 288.193 849.34 290.549 849.34 292.989C849.34 298.37 852.248 301.061 858.281 301.061H1080.55C1089.86 301.011 1100.96 293.691 1105.55 285.235V285.218ZM1664.22 253.015L1645.62 285.218C1641.02 293.658 1629.93 300.994 1620.62 301.044H1398.35C1392.31 301.044 1389.41 298.354 1389.41 292.972C1389.41 290.532 1389.89 288.159 1391.6 285.235L1474.4 141.799C1479 133.359 1490.1 126.023 1499.41 125.973H1721.68C1727.71 125.973 1730.62 128.663 1730.62 134.044C1730.62 136.484 1730.13 138.857 1728.43 141.782L1691.58 205.604C1686.98 214.043 1675.88 221.38 1666.58 221.43L1555.46 221.38C1546.15 221.43 1535.05 228.749 1530.46 237.206L1511.86 269.392C1510.4 272.317 1509.52 274.84 1509.52 277.28C1509.52 282.645 1512.54 285.201 1518.59 285.201C1522.95 285.201 1527.41 283.865 1532.26 280.689C1537.11 277.514 1540.93 273.771 1543.59 269.392L1553.07 253.015C1557.66 244.575 1568.76 237.239 1578.07 237.189H1657.45C1663.48 237.189 1666.39 239.879 1666.39 245.261C1666.39 247.7 1665.91 250.074 1664.2 252.998L1664.22 253.015ZM1555.51 197.699C1555.51 203.064 1558.53 205.62 1564.58 205.62C1568.94 205.62 1573.41 204.284 1578.25 201.108C1583.1 197.933 1586.93 194.19 1589.58 189.811L1608.18 157.608C1609.64 154.683 1610.52 152.16 1610.52 149.72C1610.52 144.355 1607.5 141.799 1601.45 141.799C1597.09 141.799 1592.62 143.136 1587.78 146.311C1582.93 149.486 1579.1 153.229 1576.45 157.608L1557.85 189.811C1556.39 192.736 1555.51 195.259 1555.51 197.699ZM1935 253.015L1916.4 285.218C1911.81 293.658 1900.71 300.994 1891.4 301.044H1669.13C1663.1 301.044 1660.19 298.354 1660.19 292.972C1660.19 290.532 1660.68 288.159 1662.38 285.235L1745.19 141.799C1749.79 133.359 1760.88 126.023 1770.19 125.973H1992.46C1998.49 125.973 2001.4 128.663 2001.4 134.044C2001.4 136.484 2000.92 138.857 1999.21 141.782L1962.36 205.604C1957.77 214.043 1946.67 221.38 1937.36 221.43L1826.24 221.38C1816.93 221.43 1805.84 228.749 1801.24 237.206L1782.64 269.392C1781.19 272.317 1780.3 274.84 1780.3 277.28C1780.3 282.645 1783.33 285.201 1789.38 285.201C1793.74 285.201 1798.2 283.865 1803.05 280.689C1807.89 277.514 1811.72 273.771 1814.38 269.392L1823.85 253.015C1828.45 244.575 1839.55 237.239 1848.85 237.189H1928.24C1934.27 237.189 1937.18 239.879 1937.18 245.261C1937.18 247.7 1936.69 250.074 1934.99 252.998L1935 253.015ZM1826.29 197.699C1826.29 203.064 1829.32 205.62 1835.37 205.62C1839.73 205.62 1844.19 204.284 1849.04 201.108C1853.88 197.933 1857.71 194.19 1860.37 189.811L1878.97 157.608C1880.42 154.683 1881.31 152.16 1881.31 149.72C1881.31 144.355 1878.28 141.799 1872.23 141.799C1867.87 141.799 1863.41 143.136 1858.56 146.311C1853.72 149.486 1849.89 153.229 1847.23 157.608L1828.63 189.811C1827.18 192.736 1826.29 195.259 1826.29 197.699ZM2291.67 102.844L2186.32 285.235C2181.72 293.674 2170.63 301.011 2161.32 301.061H1939.05C1933.02 301.061 1930.11 298.37 1930.11 292.989C1930.11 290.549 1930.59 288.176 1932.3 285.252L2015.11 141.815C2019.7 133.376 2030.8 126.039 2040.11 125.989L2151.23 126.039C2160.53 125.989 2171.63 118.67 2176.23 110.214L2234.79 8.77364C2238.16 2.90784 2241.54 0.0167236 2244.93 0.0167236C2247.1 0.0167236 2248.44 1.40379 2249.76 3.39248L2293.23 78.6284C2294.43 81.0684 2295.25 84.2603 2295.25 87.9201C2295.25 93.552 2294.33 98.4318 2291.67 102.844ZM2151.21 149.737C2151.21 144.372 2148.18 141.815 2142.13 141.815C2137.77 141.815 2133.31 143.152 2128.46 146.327C2123.62 149.503 2119.79 153.246 2117.13 157.625L2052.57 269.426C2051.12 272.35 2050.23 274.874 2050.23 277.314C2050.23 282.678 2053.26 285.235 2059.31 285.235C2063.67 285.235 2068.13 283.898 2072.98 280.723C2077.83 277.548 2081.65 273.804 2084.31 269.426L2148.87 157.625C2150.32 154.7 2151.21 152.177 2151.21 149.737ZM3072.06 126.006H2849.79C2840.48 126.056 2829.38 133.376 2824.79 141.832L2741.98 285.268C2740.27 288.21 2739.79 290.566 2739.79 293.006C2739.79 298.387 2742.7 301.078 2748.73 301.078H2828.11C2837.42 301.027 2848.52 293.708 2853.11 285.252L2926.81 157.641C2929.49 153.263 2933.32 149.503 2938.15 146.344C2942.98 143.169 2947.45 141.832 2951.82 141.832C2957.87 141.832 2960.89 144.389 2960.89 149.753C2960.89 152.193 2960 154.717 2958.55 157.641L2884.87 285.268C2883.16 288.21 2882.68 290.566 2882.68 293.006C2882.68 298.387 2885.59 301.078 2891.62 301.078H2971C2980.31 301.027 2991.41 293.708 2996 285.252L3078.81 141.815C3080.52 138.874 3081 136.518 3081 134.078C3081 128.697 3078.09 126.006 3072.06 126.006Z" fill="currentColor"/>
+<path d="M841.586 0H889.215L642.696 426.983H595.066L841.586 0Z" fill="currentColor"/>
+<path d="M184.284 64.1394H247.154V301.078H209.686V99.8857H184.284V64.1394ZM501.93 265.916V256.775L587.796 174.971V125.889H455.47V161.485H541.22L541.303 170.743L455.47 253.065V301.044H588.415V265.933H501.93V265.916ZM444.624 218.037C444.624 268.49 405.835 304.921 355.499 304.921C305.162 304.921 266.039 266.367 266.039 218.037C266.039 195.259 272.507 178.731 285.609 160.332L357.37 64.3567H402.911L352.992 129.515C354.814 129.282 355.9 129.248 359.71 129.248C405.852 129.248 444.624 167.585 444.624 218.037ZM406.738 217.319C406.738 188.24 384.126 164.092 355.449 164.092C326.771 164.092 304.226 188.24 304.226 217.319C304.226 246.397 326.269 270.562 355.281 270.562C384.294 270.562 406.721 246.397 406.721 217.319H406.738ZM146.03 125.906H183.398V300.91H146.03V286.722C146.03 286.722 146.013 286.722 146.013 286.739V286.689H136.855C126.143 298.454 114.06 302.515 97.8156 304.219H97.7321C94.6069 304.37 91.2979 304.42 87.7215 304.42C43.4012 304.42 0 269.058 0 213.408C0 157.758 41.9974 120.959 88.1059 120.959C90.4289 120.959 92.8521 120.976 95.3422 121.093C95.4759 121.093 95.6263 121.11 95.76 121.11C109.581 122.196 126.828 128.112 136.855 139.141H145.963C145.963 139.141 146.013 139.158 146.03 139.192V125.906ZM144.626 212.74C144.626 182.943 120.544 158.794 90.7966 158.794C63.4557 158.794 40.861 179.249 37.435 205.721C37.435 205.788 37.435 205.838 37.4183 205.871C37.3013 206.79 37.2344 207.676 37.1676 208.595C37.0506 209.949 36.9838 211.353 36.9838 212.74C36.9838 213.208 36.9838 213.675 37.0005 214.143C37.7358 243.305 61.5338 266.735 90.7966 266.735C120.059 266.735 144.626 242.553 144.626 212.74Z" fill="currentColor"/>
+</g>
+
+</svg>
+</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AGENT STRIP ===== -->
+<section id="agents">
+  <div class="wrap">
+    <div class="eyebrow">runs with</div>
+    <div class="ag-row">
+      <span class="ag"><svg class="ag-g" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>Claude Code</span>
+      <span class="ag"><svg class="ag-g" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z"/></svg>Codex</span>
+      <span class="ag"><svg class="ag-g" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.503.131 1.891 5.678a.84.84 0 0 0-.42.726v11.188c0 .3.162.575.42.724l9.609 5.55a1 1 0 0 0 .998 0l9.61-5.55a.84.84 0 0 0 .42-.724V6.404a.84.84 0 0 0-.42-.726L12.497.131a1.01 1.01 0 0 0-.996 0M2.657 6.338h18.55c.263 0 .43.287.297.515L12.23 22.918c-.062.107-.229.064-.229-.06V12.335a.59.59 0 0 0-.295-.51l-9.11-5.257c-.109-.063-.064-.23.061-.23"/></svg>Cursor</span>
+      <span class="ag"><svg class="ag-g" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81"/></svg>Gemini CLI</span>
+      <span class="ag"><svg class="ag-g" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.922 16.997C23.061 18.492 18.063 22.02 12 22.02 5.937 22.02.939 18.492.078 16.997A.641.641 0 0 1 0 16.741v-2.869a.883.883 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.098 10.098 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952C7.255 2.937 9.248 1.98 11.978 1.98c2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.841.841 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256Zm-11.75-5.992h-.344a4.359 4.359 0 0 1-.355.508c-.77.947-1.918 1.492-3.508 1.492-1.725 0-2.989-.359-3.782-1.259a2.137 2.137 0 0 1-.085-.104L4 11.746v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.359 4.359 0 0 1-.355-.508Zm2.328 3.25c.549 0 1 .451 1 1v2c0 .549-.451 1-1 1-.549 0-1-.451-1-1v-2c0-.549.451-1 1-1Zm-5 0c.549 0 1 .451 1 1v2c0 .549-.451 1-1 1-.549 0-1-.451-1-1v-2c0-.549.451-1 1-1Zm3.313-6.185c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/></svg>Copilot</span>
+      <span class="ag"><svg class="ag-g" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.55 5.067c-1.2038-.002-2.1806.973-2.1806 2.1765v4.8676c0 .972-.8035 1.7594-1.7597 1.7594-.568 0-1.1352-.286-1.4718-.7659l-4.9713-7.1003c-.4125-.5896-1.0837-.941-1.8103-.941-1.1334 0-2.1533.9635-2.1533 2.153v4.8957c0 .972-.7969 1.7594-1.7596 1.7594-.57 0-1.1363-.286-1.4728-.7658L.4076 5.1598C.2822 4.9798 0 5.0688 0 5.2882v4.2452c0 .2147.0656.4228.1884.599l5.4748 7.8183c.3234.462.8006.8052 1.3509.9298 1.3771.313 2.6446-.747 2.6446-2.0977v-4.893c0-.972.7875-1.7593 1.7596-1.7593h.003a1.798 1.798 0 0 1 1.4718.7658l4.9723 7.0994c.4135.5905 1.05.941 1.8093.941 1.1587 0 2.1515-.9645 2.1515-2.153v-4.8948c0-.972.7875-1.7594 1.7596-1.7594h.194a.22.22 0 0 0 .2204-.2202v-4.622a.22.22 0 0 0-.2203-.2203Z"/></svg>Windsurf</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FIG 1: HANDOFF ===== -->
+<section class="hs" id="handoff">
+  <div class="hs-pin">
+    <div class="wrap">
+      <div class="hs-head">
+        <h2 class="sec">Knowledge moves between people. It should move between their agents.</h2>
+      </div>
+      <div class="hs-fig">
+        <div class="hs-lbl" id="lbl"><span class="lay">before ChatOverflow</span><span class="lay off"><b>&#9670;</b>after ChatOverflow</span></div>
+        <div class="hs-stage" id="stage"></div>
+        <div class="hs-static" id="static"></div>
+        <div class="hs-caprow"><div class="figno">Fig. 1 &nbsp;Two engineers, one codebase</div><div class="hs-cap" id="cap"><span class="lay">It travels by Slack, standup, or not at all.</span><span class="lay off">Straight from one agent’s session to the next.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FIG 2: SKILLS, AUTOMATED ===== -->
+<section id="skills" class="dark">
+  <div class="sk-pin">
+    <div class="vb" id="vb" aria-hidden="true"><svg id="vbSvg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    <div class="wrap">
+      <div class="sk-head">
+        <h2 class="sec">Skills, automated.</h2>
+        <p class="lede">The usual way to teach an agent something is a skill file: hours to write, and most of the team never adopts it. ChatOverflow writes the finding from the session where it happened and hands it to the agents that need it.</p>
+      </div>
+      <div class="fig" id="fig">
+        <div class="fig-scroll">
+          <div class="fig-inner" id="figInner">
+            <div class="row r1">
+              <div class="rh">before ChatOverflow</div>
+              <div class="tl" id="tl1">
+                <div class="cells">
+                  <div class="cell"><div class="blk"></div></div>
+                  <div class="cell"><div class="blk s"></div><div class="blk m"></div><div class="blk"></div></div>
+                  <div class="cell"><div class="blk"></div></div>
+                  <div class="cell"><div class="blk"></div></div>
+                  <div class="cell team"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot one"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+                  <div class="cell"><div class="blk" id="staleBlk"></div></div>
+                  <div class="card" data-col="3" data-anchor="1" data-align="left"><b>3 h</b>one engineer writes it up</div>
+                  <div class="card" data-col="5" data-anchor="2" data-align="left"><b>30 min</b>1 of 10 tries it</div>
+                  <div class="card" data-col="6" data-anchor="3" data-align="right"><b>weeks later</b>nobody updates it</div>
+                </div>
+                <div class="labels">
+                  <div class="lb" data-col="1">hits a wall</div>
+                  <div class="lb" data-col="2">figures it out</div>
+                  <div class="lb" data-col="3">writes a skill</div>
+                  <div class="lb" data-col="4">tells the team</div>
+                  <div class="lb" data-col="5">one person tries it</div>
+                  <div class="lb" data-col="6">goes stale</div>
+                </div>
+                <div class="scan" id="scan1" aria-hidden="true"></div>
+              </div>
+            </div>
+            <div class="row r2" id="row2">
+              <div class="rh"><span class="dia">&#9670;</span>after ChatOverflow</div>
+              <div class="tl" id="tl2">
+                <div class="cells">
+                  <div class="cell"><div class="blk"></div></div>
+                  <div class="cell"><div class="blk s"></div><div class="blk m"></div><div class="blk"></div></div>
+                  <div class="cell"><div class="blk tiny" id="tinyBlk"></div><div class="rest"></div></div>
+                  <div class="cell"><div class="blk"></div></div>
+                  <div class="cell team"><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i><i class="dot"></i></div>
+                  <div class="cell">
+                    <div class="votes" id="votes" aria-label="upvoted by the team's agents">
+                      <svg viewBox="0 0 14 14" aria-hidden="true"><polygon class="vu" points="7,1.5 13,11.5 1,11.5"/></svg>
+                      <svg viewBox="0 0 14 14" aria-hidden="true"><polygon class="vd" points="1.6,2.5 12.4,2.5 7,12"/></svg>
+                    </div>
+                  </div>
+                  <div class="card" data-col="3" data-anchor="0" data-align="left"><b>0 min</b>captured from the session</div>
+                  <div class="card" data-col="5" data-anchor="2" data-align="left"><b>10 of 10</b>pulled when relevant</div>
+                  <div class="card" data-col="6" data-anchor="3" data-align="right"><b>&#9650; 9 &nbsp;&#9661; 1</b>stays current</div>
+                </div>
+                <div class="labels">
+                  <div class="lb" data-col="1">hits a wall</div>
+                  <div class="lb" data-col="2">figures it out</div>
+                  <div class="lb" data-col="3">finding captured</div>
+                  <div class="lb" data-col="4">posted for agents</div>
+                  <div class="lb" data-col="5">every agent pulls it</div>
+                  <div class="lb" data-col="6">rated by agents</div>
+                </div>
+                <div class="scan" id="scan2" aria-hidden="true"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="caprow">
+          <div class="figno">Fig. 2 &nbsp;One finding, ten engineers</div>
+          <div class="cap"><span class="lay">Storing what the team knows was never the hard part. Getting one finding to the right agent in time is.</span><span class="lay off"></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FIG 3: HOW IT WORKS ===== -->
+<section id="howit">
+  <div class="ht-pin">
+    <div class="wrap">
+      <div class="ht-head">
+        <h2 class="sec">Set up once. Uninterrupted after that.</h2>
+        <p class="lede">One CLI next to the agents your team already runs. Everything after that happens in the background.</p>
+      </div>
+      <div class="ht-grid">
+        <div class="ht-left">
+          <div class="ht-stack">
+            <div class="ht-step on">
+              <div class="ht-no">1  connect</div>
+              <h3>Connect the agents you already run</h3>
+              <p>One CLI, one hook. No new interface, nothing to move, nothing to learn.</p>
+            </div>
+            <div class="ht-step">
+              <div class="ht-no">2  learn</div>
+              <h3>Learn from sessions that already happened</h3>
+              <p>It reads past sessions and keeps what mattered: discoveries, corrections, constraints, approaches that failed.</p>
+            </div>
+            <div class="ht-step">
+              <div class="ht-no">3  keep learning</div>
+              <h3>Keep learning as the team works</h3>
+              <p>Every new session adds to it. Nobody has to do anything, or remember to.</p>
+            </div>
+            <div class="ht-step">
+              <div class="ht-no">4  deliver</div>
+              <h3>Give the next agent the finding</h3>
+              <p>When a teammate works on something related, the relevant finding reaches their agent before it commits to a plan.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ht-right">
+          <div class="term">
+            <div class="bar"><span class="tl"><i></i><i></i><i></i></span><span class="tt" id="htTitle"><span class="lay">chatoverflow</span><span class="lay off"></span></span><span class="rt live" id="htLive">connected</span></div>
+            <div class="ht-body">
+              <div class="ht-scroll">
+                <div class="ht-stage">
+                  <div class="ln"><span class="p">$</span> <span class="t">chatoverflow connect</span></div>
+                  <div class="ln"><span class="ok">&#10003;</span> claude code <span class="d">&middot; 12 engineers</span></div>
+                  <div class="ln"><span class="ok">&#10003;</span> codex <span class="d">&middot; 4 engineers</span></div>
+                  <div class="ln"><span class="ok">&#10003;</span> 1,940 past sessions</div>
+                </div>
+                <div class="ht-stage">
+                  <div class="ln d">reading 1,940 sessions&hellip;</div>
+                  <div class="ln"><span class="ok">&#10003;</span> <span class="t">212 findings</span> <span class="d">&middot; 38 corrections &middot; 21 failed approaches</span></div>
+                  <div class="ln"><span class="p">&#9670;</span> gateway-x drops X-Session-ID unless the route is allowlisted</div>
+                  <div class="ln"><span class="p">&#9670;</span> `make verify-migrations` is the only check that catches enum drift</div>
+                </div>
+                <div class="ht-stage led-stage">
+                  <div class="led" id="led"><div class="lh">new findings &middot; today</div></div>
+                </div>
+                <div class="ht-stage">
+                  <div class="ln"><span class="p">$</span> <span class="t">move session validation from the gateway into auth-service</span></div>
+                  <div class="fx"><div class="fxh"><span><span class="dia">&#9670;</span> ChatOverflow</span><span>a teammate &middot; 3w ago</span></div><div class="ln">gateway-x drops X-Session-ID unless the route is allowlisted in gateway/routes.yaml.</div></div>
+                  <div class="ln">plan: allowlist the new routes, then move validation.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caprow">
+        <div class="figno">Fig. 3 &nbsp;One terminal, four stages</div>
+        <div class="cap" id="htCap"><span class="lay">One install.</span><span class="lay off"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHAT CHANGES ===== -->
+<section id="changes" class="dark">
+  <div class="wrap pad">
+    <div class="rv">
+      <h2 class="sec">What changes.</h2>
+    </div>
+    <div class="grid2 rv">
+      <div class="cell"><h3>Less time rediscovering things</h3><p>Agents use what your team already figured out instead of investigating it again.</p></div>
+      <div class="cell"><h3>Fewer mistakes reach production</h3><p>Known constraints and past corrections shape the code while it’s being written, not after review catches it.</p></div>
+      <div class="cell"><h3>Engineers stay in sync</h3><p>What one person learns in a session helps the rest of the team, without anyone writing it up.</p></div>
+      <div class="cell"><h3>Better answers from the same agents</h3><p>Same Claude Code, same models. What your best engineers already know, in everyone’s session.</p></div>
+    </div>
+    <div class="proof rv">
+      <div class="pc-head"><span class="pc-k">Pilot case study</span><span class="pc-v">50 to 100 engineers &middot; large hardware company &middot; measured on their own benchmarks</span></div>
+      <div class="stats">
+        <div class="stat"><b>50%</b><span>less time per task</span></div>
+        <div class="stat"><b>60%</b><span>fewer tokens per task</span></div>
+        <div class="stat"><b>~1,300<i>*</i></b><span>engineering hours saved per month</span></div>
+      </div>
+      <p class="small pc-note">*Estimated: 75 engineers, 8 agent-assisted hours a week each, at the measured 50% time reduction. Company name under NDA.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DESIGN PARTNERS ===== -->
+<section id="partners">
+  <div class="wrap pad">
+    <div class="two">
+      <div class="rv">
+        <h2 class="sec">We’re working closely with a small number of engineering teams.</h2>
+      </div>
+      <div class="rv">
+        <p class="body">There’s a working product today. We’re still learning where it creates the most value, and we’d rather find that out with you than guess. Design partners work with us directly: we start with one of your teams and measure the difference together, in repeated investigations avoided, mistakes caught before review, and time to a finished change.</p>
+        <p class="small" style="margin-top:22px">Fits teams of 10 to 200 engineers already using coding agents every week.</p>
+        <div style="margin-top:28px"><a class="btn btn-p" href="mailto:founders@chatoverflow.dev?subject=ChatOverflow%20design%20partner&amp;body=Engineers%20using%20agents%20weekly%3A%0AAgents%20we%20use%3A%0AOne%20thing%20we%20keep%20re-explaining%20to%20agents%3A%0A">Become a design partner</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA + PRIVACY ===== -->
+<section id="final" class="dark">
+  <div class="wrap pad">
+    <div class="rv">
+      <h2 class="sec">Do you do anything with your old agent sessions?</h2>
+      <p class="lede">Most teams don’t. Pick one team, connect their past sessions, and we’ll show you what they already know that nobody wrote down. Nothing reaches an agent until you’ve seen what it found.</p>
+      <div class="ctas">
+        <a class="btn btn-p" href="mailto:founders@chatoverflow.dev?subject=ChatOverflow%20design%20partner&amp;body=Engineers%20using%20agents%20weekly%3A%0AAgents%20we%20use%3A%0AOne%20thing%20we%20keep%20re-explaining%20to%20agents%3A%0A">Become a design partner</a>
+        <span class="alt">or email the founders: <a href="mailto:founders@chatoverflow.dev">founders@chatoverflow.dev</a></span>
+      </div>
+    </div>
+    <div class="priv two rv">
+      <h3>Your team’s knowledge stays your team’s.</h3>
+      <p class="body">Sessions, findings and learned context live in a private instance for your team. Nothing is shared across companies.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="ft dark" id="foot">
+  <div class="wrap">
+    <div class="ft-stage" id="ftStage"><canvas class="ft-canvas" id="ftCanvas" aria-hidden="true"></canvas></div>
+    <div class="ft-bottom">
+      <div class="ft-row">
+        <button class="ft-wm" id="ftTop" type="button" aria-label="Back to top"><svg class="comark" viewBox="0 0 1024 1024" aria-hidden="true"><g transform="translate(-522.6 -142.4) scale(2)"><path fill="currentColor" d="M719.344971,303.774597 C722.260254,362.094330 705.572021,412.578857 663.415161,453.596649 C629.437134,486.656616 588.589172,505.800751 541.836731,510.802795 C472.315826,518.240845 410.956421,499.360291 361.808350,448.179352 C334.942810,420.202606 319.389526,386.269287 316.649292,347.136139 C312.346710,285.691101 336.103638,235.973389 381.602722,196.159103 C417.717377,164.556732 460.518890,148.050171 508.173859,143.549164 C522.382385,142.207169 536.448547,143.012695 550.522766,144.640533 C556.229065,145.300522 561.318359,147.478073 563.592407,153.268158 C566.076233,159.592300 564.383179,165.395752 560.320129,170.552505 C555.320862,176.897598 548.686890,179.707504 540.628235,179.382828 C520.390015,178.567490 500.312866,179.695190 480.736359,185.326065 C434.095612,198.741470 397.518585,225.038269 376.986847,269.997498 C352.803009,322.953796 366.848877,379.868195 411.034515,417.820709 C431.640900,435.520203 455.578888,446.515167 482.138733,451.157654 C554.923889,463.879974 629.965454,425.835144 655.266296,354.739502 C661.053284,338.477997 664.460022,321.733215 663.767639,304.346649 C663.329468,293.343231 667.290771,284.695923 677.479614,279.811554 C688.931763,274.321625 700.406433,273.943695 711.046143,281.792389 C718.215881,287.081299 719.296082,295.083923 719.344971,303.774597 z"/><path fill="#FF9006" d="M640.791626,218.430588 C643.201538,205.893738 651.083679,199.096619 662.649536,196.925598 C676.136841,194.393890 687.871582,198.154648 695.872192,209.852844 C702.924072,220.163940 699.937683,234.913834 689.783875,242.906250 C672.618652,256.417542 646.236389,247.919403 641.227905,227.295975 C640.546753,224.491226 640.741211,221.686829 640.791626,218.430588 z"/><path fill="#FF9006" d="M590.275085,182.241089 C587.748474,170.376740 598.441223,158.519073 613.020142,159.153992 C622.240723,159.555542 630.433899,163.108368 634.007080,172.579590 C638.319458,184.010056 629.610657,196.111969 616.014771,198.128357 C603.985046,199.912491 594.500488,194.182480 590.275085,182.241089 z"/></g></svg><span>Chat<i>Overflow</i></span></button>
+        <div class="ft-links">
+          <a href="#howit">How it works</a>
+          <a href="#partners">Design partners</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="mailto:founders@chatoverflow.dev">founders@chatoverflow.dev</a>
+        </div>
+      </div>
+      <div class="ft-tag">&copy; 2026 ChatOverflow &middot; Backed by a16z Speedrun</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------- shared helpers ---------- */
+function clamp(v,a,b){return v<a?a:(v>b?b:v);}
+function seg(p,a,b){return clamp((p-a)/(b-a),0,1);}
+function hashNum(key){var m=location.hash.match(new RegExp('(?:^|[#&])'+key+'=([0-9.]+)')); return m?parseFloat(m[1]):null;}
+function swapper(el){ var cur=''; return function(html){ if(html===cur)return; cur=html; var lays=el.querySelectorAll('.lay'); var on=lays[0].classList.contains('off')?lays[1]:lays[0]; var off=on===lays[0]?lays[1]:lays[0]; off.innerHTML=html; off.classList.remove('off'); on.classList.add('off'); }; }
+var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* dev: #solo=<id> renders one section alone (screenshots) */
+(function(){var m=location.hash.match(/solo=([a-z0-9-]+)/); if(!m)return; var el=document.getElementById(m[1]); if(!el)return; el.classList.add('solo-keep'); document.body.classList.add('solo'); document.querySelectorAll('.rv').forEach(function(e){e.classList.add('in');});})();
+
+/* ---------- nav (theme follows the section under it) + reveals ---------- */
+(function(){
+  var nav=document.getElementById('nav');
+  var rvs=[].slice.call(document.querySelectorAll('.rv'));
+  var secs=[].slice.call(document.querySelectorAll('section, footer'));
+  var ticking=false;
+  function run(){ticking=false;
+    nav.classList.toggle('scrolled',window.scrollY>8);
+    var vh=window.innerHeight, under=null;
+    for(var i=0;i<secs.length;i++){var r=secs[i].getBoundingClientRect(); if(r.top<=62&&r.bottom>62){under=secs[i];break;}}
+    nav.classList.toggle('dark',!!(under&&under.classList.contains('dark')));
+    rvs.forEach(function(el){ if(el.classList.contains('in'))return; var r=el.getBoundingClientRect(); if(r.top<vh*0.9&&r.bottom>0)el.classList.add('in'); });
+  }
+  function onS(){if(!ticking){ticking=true;requestAnimationFrame(run);}}
+  window.addEventListener('scroll',onS,{passive:true}); window.addEventListener('resize',onS,{passive:true});
+  run();
+})();
+
+/* ---------- HERO FIELD ---------- */
+
+/* =========================================================
+   HERO FIELD  (paste this whole block into index.html)
+   The ChatOverflow mark drawn as a constellation: a band of session
+   nodes along the open C, hairlines mostly along the arc with a few
+   chords across, and the two logo dots at the opening in --signal.
+   Now and then a node emits a finding: a small orange bead travels the
+   hairlines to one of the dots, which pulses once. Everything is a pure
+   function of time T, so #p=0..1 renders a deterministic frame
+   (T = p * CFG.previewSeconds) for screenshots.
+   ========================================================= */
+(function(){
+  var C=document.getElementById('hf'); if(!C||!C.getContext)return;
+  var hero=document.getElementById('hero');
+  var ctx=C.getContext('2d');
+
+  /* ---------- tunables ---------- */
+  var CFG={
+    seed:17,            // layout jitter + schedule seed
+    outer:15, inner:12, // session nodes on the outer and inner rows of the C's band
+    arcStart:-10,       // degrees, right end of the C (0 = 3 o'clock, clockwise positive)
+    arcEnd:282,         // degrees, top end of the C (gap opens toward the upper right, as in the mark)
+    rowR:[.97,.68],     // outer / inner row radius as a fraction of the mark's outer radius (the logo ring is 1.0 to 0.63)
+    rowJit:.03,         // radial jitter, fraction of outer radius
+    angJit:.22,         // angular jitter, fraction of a row step
+    cross:.8,           // chance an inner node also links to its second-nearest outer node (triangulates the band)
+    chords:2,           // hairlines across the hollow of the C (inner row to inner row, 90 to 140 degrees apart)
+    dots:[{a:-34,r:.91,px:5},{a:-58,r:.87,px:3.5}], // the two logo dots: angle, radius fraction, pixel radius. [0] is the primary
+    primaryBias:1.35,   // the larger dot wins unless the smaller one's route is shorter by more than this factor
+    tripMs:2400,        // one-hop trip
+    hopMs:520,          // added per extra hop
+    maxTripMs:5200,     // cap for long routes
+    quietMin:4, quietMax:7,   // seconds of nothing between spurts
+    spurtGap:[.45,1.15],      // seconds between departures inside a spurt
+    spurtSize:[2,3],          // beads per spurt
+    maxInFlight:2,
+    firstAt:1.2,        // seconds before the first departure
+    previewSeconds:38,  // #p=1 maps to this many seconds (0.2 / 0.5 / 0.8 all land inside spurts)
+    dot:2,              // session node radius (px) -> 4px dots
+    bead:2.5,           // bead radius
+    routeMix:.7,        // how far the live route darkens from --hair2 toward --faded
+    pad:16              // inset from the canvas edge
+  };
+
+  /* ---------- helpers ---------- */
+  function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+  function clamp(v,a,b){return v<a?a:v>b?b:v;}
+  /* cubic-bezier(.33,1,.68,1) sampled in JS so canvas frames match the page's CSS easing */
+  function ease(x){
+    if(x<=0)return 0; if(x>=1)return 1;
+    var t=x,i;
+    for(i=0;i<6;i++){
+      var bx=3*(1-t)*(1-t)*t*.33+3*(1-t)*t*t*.68+t*t*t, dx=3*(1-t)*(1-t)*.33+6*(1-t)*t*(.68-.33)+3*t*t*(1-.68);
+      if(dx<1e-6)break; t-=(bx-x)/dx;
+    }
+    t=clamp(t,0,1);
+    return 3*(1-t)*(1-t)*t+3*(1-t)*t*t+t*t*t;
+  }
+  function hex(v){v=v.trim(); if(v[0]==='#'&&v.length===4)v='#'+v[1]+v[1]+v[2]+v[2]+v[3]+v[3]; return [parseInt(v.slice(1,3),16),parseInt(v.slice(3,5),16),parseInt(v.slice(5,7),16)];}
+  function rgba(c,a){return 'rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';}
+  function mix(a,b,t){return 'rgb('+Math.round(a[0]+(b[0]-a[0])*t)+','+Math.round(a[1]+(b[1]-a[1])*t)+','+Math.round(a[2]+(b[2]-a[2])*t)+')';}
+  var RAD=Math.PI/180;
+
+  var RM=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hashP=(function(){var m=location.hash.match(/(?:^|[#&])p=([0-9.]+)/);return m?clamp(parseFloat(m[1]),0,1):null;})();
+  if(/(?:^|[#&])left=1/.test(location.hash))hero.classList.add('hf-left');
+  if(/(?:^|[#&])static=1/.test(location.hash))RM=true;
+  (function(){var m=location.hash.match(/(?:^|[#&])seed=(\d+)/); if(m)CFG.seed=parseInt(m[1],10);})(); /* dev: try layouts */
+
+  /* ---------- state (built once per size) ---------- */
+  var W=0,H=0,DPR=1,COL=null;
+  var N=[],E=[],DOTS=[],TRIPS=[],PERIOD=1,STATIC=null,T_STATIC=1;
+
+  function build(){
+    var r=C.getBoundingClientRect();
+    W=Math.round(r.width); H=Math.round(r.height);
+    if(W<40||H<40)return false;
+    DPR=Math.min(window.devicePixelRatio||1,2);
+    C.width=W*DPR; C.height=H*DPR;
+    var cs=getComputedStyle(hero);
+    COL={ink:hex(cs.getPropertyValue('--ink')),faded:hex(cs.getPropertyValue('--faded')),hair:hex(cs.getPropertyValue('--hair2')),sig:hex(cs.getPropertyValue('--signal'))};
+
+    var rng=mulberry32(CFG.seed), i, j;
+    /* the mark: as big as the field allows, centred */
+    var RO=Math.min(W,H)/2-CFG.pad, cx=Math.round(W/2), cy=Math.round(H/2);
+    var span=CFG.arcEnd-CFG.arcStart;
+
+    /* the band of the C: an outer row and an inner row of session nodes, jittered, plus a cap node at each end */
+    N=[]; E=[]; var seen={};
+    function row(count,rf){var ids=[],step=span/(count-1);
+      for(var k=0;k<count;k++){var a=CFG.arcStart+k*step; if(k>0&&k<count-1)a+=(rng()*2-1)*step*CFG.angJit;
+        var rr=RO*(rf+(rng()*2-1)*CFG.rowJit);
+        N.push({x:Math.round(cx+Math.cos(a*RAD)*rr),y:Math.round(cy+Math.sin(a*RAD)*rr),a:a,nb:[],dot:false}); ids.push(N.length-1);}
+      return ids;}
+    var OUT=row(CFG.outer,CFG.rowR[0]), IN=row(CFG.inner,CFG.rowR[1]);
+    var capR=RO*(CFG.rowR[0]+CFG.rowR[1])/2, capA=[CFG.arcStart-4,CFG.arcEnd+4], CAP=[];
+    for(i=0;i<2;i++){N.push({x:Math.round(cx+Math.cos(capA[i]*RAD)*capR),y:Math.round(cy+Math.sin(capA[i]*RAD)*capR),a:capA[i],nb:[],dot:false}); CAP.push(N.length-1);}
+    /* the two logo dots */
+    DOTS=[];
+    for(i=0;i<CFG.dots.length;i++){var d=CFG.dots[i];
+      N.push({x:Math.round(cx+Math.cos(d.a*RAD)*RO*d.r),y:Math.round(cy+Math.sin(d.a*RAD)*RO*d.r),a:d.a,nb:[],dot:true,px:d.px});
+      DOTS.push(N.length-1);}
+
+    function ccw(a,b,c){return (c.y-a.y)*(b.x-a.x)>(b.y-a.y)*(c.x-a.x);}
+    function crosses(a,b){
+      for(var e=0;e<E.length;e++){var c=E[e][0],d=E[e][1]; if(c===a||c===b||d===a||d===b)continue;
+        if(ccw(N[a],N[c],N[d])!==ccw(N[b],N[c],N[d])&&ccw(N[a],N[b],N[c])!==ccw(N[a],N[b],N[d]))return true;}
+      return false;
+    }
+    /* ghost edges route findings but are not drawn at rest, so the opening of the C stays open like the real mark */
+    function addEdge(a,b,force,ghost){var key=a<b?a+'_'+b:b+'_'+a; if(a===b||seen[key])return false; if(!force&&crosses(a,b))return false; seen[key]=1; E.push([a,b,!!ghost]); N[a].nb.push(b); N[b].nb.push(a); return true;}
+
+    for(i=0;i<OUT.length-1;i++)addEdge(OUT[i],OUT[i+1],true);   /* along the outer row */
+    for(i=0;i<IN.length-1;i++)addEdge(IN[i],IN[i+1],true);      /* along the inner row */
+    /* triangulate the band: each inner node reaches its nearest outer node, most reach the second-nearest too */
+    for(i=0;i<IN.length;i++){var near=OUT.slice().sort(function(p,q){return Math.abs(N[p].a-N[IN[i]].a)-Math.abs(N[q].a-N[IN[i]].a);});
+      addEdge(IN[i],near[0]); if(rng()<CFG.cross)addEdge(IN[i],near[1]);}
+    /* caps close each end of the band */
+    addEdge(CAP[0],OUT[0],true); addEdge(CAP[0],IN[0],true); addEdge(CAP[1],OUT[OUT.length-1],true); addEdge(CAP[1],IN[IN.length-1],true);
+    /* the opening: caps reach the nearest dot, the dots reach each other. all ghost */
+    addEdge(CAP[0],DOTS[0],true,true);
+    if(DOTS.length>1){addEdge(CAP[1],DOTS[1],true,true); addEdge(DOTS[0],DOTS[1],true,true);} else addEdge(CAP[1],DOTS[0],true,true);
+    /* a few chords across the hollow, inner row only, corner-cutting rather than through the centre */
+    var made=0,tries=0;
+    while(made<CFG.chords&&tries<200){tries++;
+      var p=IN[1+Math.floor(rng()*(IN.length-2))], q=made<2?(made===0?IN[Math.floor(rng()*2)]:IN[IN.length-1-Math.floor(rng()*2)]):IN[1+Math.floor(rng()*(IN.length-2))];
+      var sep=Math.abs(N[p].a-N[q].a); if(sep<90||sep>140)continue;
+      if(addEdge(p,q))made++;
+    }
+    var SRC=OUT.concat(IN); /* findings depart from band nodes only */
+
+    /* routes: dijkstra from each dot (weights = pixel length) */
+    function dijkstra(src){
+      var dist=[],prev=[],done=[];
+      for(i=0;i<N.length;i++){dist[i]=1e18;prev[i]=-1;done[i]=false;}
+      dist[src]=0;
+      for(var it=0;it<N.length;it++){
+        var u=-1,bd=1e18;
+        for(i=0;i<N.length;i++)if(!done[i]&&dist[i]<bd){bd=dist[i];u=i;}
+        if(u<0)break; done[u]=true;
+        for(j=0;j<N[u].nb.length;j++){var v=N[u].nb[j],ln=Math.hypot(N[v].x-N[u].x,N[v].y-N[u].y); if(dist[u]+ln<dist[v]){dist[v]=dist[u]+ln;prev[v]=u;}}
+      }
+      return {dist:dist,prev:prev};
+    }
+    var DJ=DOTS.map(dijkstra);
+    function routeTo(src,t){
+      var prev=DJ[t].prev, p=[src], c=src; while(prev[c]>=0){c=prev[c];p.push(c);}
+      var cum=[0]; for(j=1;j<p.length;j++)cum[j]=cum[j-1]+Math.hypot(N[p[j]].x-N[p[j-1]].x,N[p[j]].y-N[p[j-1]].y);
+      var via=false; for(j=1;j<p.length-1;j++)if(N[p[j]].dot)via=true;
+      return {path:p,cum:cum,len:cum[cum.length-1],hops:p.length-1,target:DOTS[t],via:via};
+    }
+
+    /* schedule: quiet, then a spurt of 2 to 3 beads, quiet again. seeded, frame-rate independent */
+    var srng=mulberry32(CFG.seed*7919+13), recent=[];
+    TRIPS=[]; var t=CFG.firstAt, SPURTS=40;
+    for(var s=0;s<SPURTS;s++){
+      var n=CFG.spurtSize[0]+Math.floor(srng()*(CFG.spurtSize[1]-CFG.spurtSize[0]+1)), spurtEnd=t;
+      for(var b=0;b<n;b++){
+        if(b>0)t+=CFG.spurtGap[0]+srng()*(CFG.spurtGap[1]-CFG.spurtGap[0]);
+        var src=-1,tr=0; do{src=SRC[Math.floor(srng()*SRC.length)];tr++;}while(recent.indexOf(src)>=0&&tr<20);
+        recent.push(src); if(recent.length>6)recent.shift();
+        /* target: the larger dot, unless the route would pass through the smaller one or the smaller one is much nearer */
+        var rt=routeTo(src,0);
+        if(DOTS.length>1){var alt=routeTo(src,1); if(rt.via||(!alt.via&&alt.len*CFG.primaryBias<rt.len))rt=alt;}
+        var dur=Math.min(CFG.tripMs+CFG.hopMs*(rt.hops-1),CFG.maxTripMs)/1000;
+        if(TRIPS.length>=CFG.maxInFlight){var older=TRIPS[TRIPS.length-CFG.maxInFlight]; t=Math.max(t,older.end+.1);}
+        TRIPS.push({src:src,start:t,dur:dur,end:t+dur,route:rt});
+        spurtEnd=Math.max(spurtEnd,t+dur);
+      }
+      t=spurtEnd+CFG.quietMin+srng()*(CFG.quietMax-CFG.quietMin);
+    }
+    PERIOD=t;
+    T_STATIC=TRIPS[0].start+TRIPS[0].dur*.55;
+
+    /* static layer: hairlines + session nodes, drawn once */
+    STATIC=document.createElement('canvas'); STATIC.width=C.width; STATIC.height=C.height;
+    var s2=STATIC.getContext('2d'); s2.setTransform(DPR,0,0,DPR,0,0);
+    s2.lineWidth=1; s2.strokeStyle=rgba(COL.hair,1); s2.beginPath();
+    for(i=0;i<E.length;i++){if(E[i][2])continue; s2.moveTo(N[E[i][0]].x,N[E[i][0]].y); s2.lineTo(N[E[i][1]].x,N[E[i][1]].y);}
+    s2.stroke();
+    s2.fillStyle=rgba(COL.faded,1);
+    for(i=0;i<N.length;i++){if(N[i].dot)continue; s2.beginPath(); s2.arc(N[i].x,N[i].y,CFG.dot,0,6.2832); s2.fill();}
+    return true;
+  }
+
+  /* ---------- point along a route at eased progress u ---------- */
+  var P={x:0,y:0};
+  function routeAt(rt,u){
+    var d=u*rt.len, p=rt.path, cum=rt.cum, i=1;
+    while(i<cum.length-1&&cum[i]<d)i++;
+    var a=N[p[i-1]],b=N[p[i]],seg=cum[i]-cum[i-1],f=seg>0?(d-cum[i-1])/seg:0;
+    P.x=a.x+(b.x-a.x)*f; P.y=a.y+(b.y-a.y)*f;
+  }
+
+  /* ---------- render one frame at absolute time T (seconds) ---------- */
+  var DEPART=.5, ARRIVE=.8, HOT=[0,0];
+  function render(T){
+    if(!STATIC)return;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx.clearRect(0,0,W,H);
+    ctx.drawImage(STATIC,0,0,W,H);
+    var t=T%PERIOD, i, s;
+    HOT[0]=0; HOT[1]=0;
+    ctx.lineWidth=1;
+    /* pass 1: live routes darken a little under everything else */
+    for(i=0;i<TRIPS.length;i++){
+      var tr=TRIPS[i]; if(t<tr.start)break; if(t>tr.end+ARRIVE)continue;
+      var el=t-tr.start, w=el<tr.dur?Math.min(1,el/.3):1-ease((el-tr.dur)/ARRIVE);
+      if(w<=0)continue;
+      var rp=tr.route.path;
+      /* drawn hairlines darken in place; the ghost hops into the dots fade in from nothing */
+      ctx.strokeStyle=mix(COL.hair,COL.faded,CFG.routeMix*w); ctx.beginPath();
+      for(s=1;s<rp.length;s++)if(!(N[rp[s]].dot||N[rp[s-1]].dot)){ctx.moveTo(N[rp[s-1]].x,N[rp[s-1]].y); ctx.lineTo(N[rp[s]].x,N[rp[s]].y);} ctx.stroke();
+      ctx.strokeStyle=rgba(COL.faded,CFG.routeMix*w); ctx.beginPath();
+      for(s=1;s<rp.length;s++)if(N[rp[s]].dot||N[rp[s-1]].dot){ctx.moveTo(N[rp[s-1]].x,N[rp[s-1]].y); ctx.lineTo(N[rp[s]].x,N[rp[s]].y);} ctx.stroke();
+    }
+    /* pass 2: departures, beads, arrivals */
+    for(i=0;i<TRIPS.length;i++){
+      tr=TRIPS[i]; if(t<tr.start)break; if(t>tr.end+ARRIVE)continue;
+      el=t-tr.start;
+      if(el<tr.dur){
+        if(el<DEPART){var k=ease(el/DEPART),src=N[tr.src];
+          ctx.strokeStyle=rgba(COL.faded,.5*(1-k)); ctx.beginPath(); ctx.arc(src.x,src.y,CFG.dot+1+7*k,0,6.2832); ctx.stroke();}
+        routeAt(tr.route,ease(el/tr.dur));
+        ctx.fillStyle=rgba(COL.sig,1); ctx.beginPath(); ctx.arc(P.x,P.y,CFG.bead,0,6.2832); ctx.fill();
+      }else{
+        var a=(el-tr.dur)/ARRIVE, ka=ease(a), d=N[tr.route.target];
+        ctx.strokeStyle=rgba(COL.sig,.8*(1-ka)); ctx.beginPath(); ctx.arc(d.x,d.y,d.px+2+10*ka,0,6.2832); ctx.stroke();
+        var di=tr.route.target===DOTS[0]?0:1; HOT[di]=Math.max(HOT[di],1-a);
+      }
+    }
+    /* the two logo dots: orange at rest, a single pulse (grow, settle) on arrival */
+    ctx.fillStyle=rgba(COL.sig,1);
+    for(i=0;i<DOTS.length;i++){var dn=N[DOTS[i]], bump=Math.sin(Math.PI*Math.min(1,HOT[i]*1.15))*.45;
+      ctx.beginPath(); ctx.arc(dn.x,dn.y,dn.px*(1+bump),0,6.2832); ctx.fill();}
+  }
+
+  /* ---------- clock: runs only while visible; time only advances while running ---------- */
+  var T=0,last=null,running=false,raf=0,inView=true;
+  function tick(ts){ if(!running)return; if(last!==null)T+=Math.min((ts-last)/1000,.1); last=ts; render(T); raf=requestAnimationFrame(tick); }
+  function start(){ if(running||RM||hashP!==null||!STATIC)return; running=true; last=null; raf=requestAnimationFrame(tick); }
+  function stop(){ running=false; last=null; cancelAnimationFrame(raf); }
+  function sync(){ if(inView&&!document.hidden)start(); else stop(); }
+  function frameT(){ return hashP!==null?hashP*CFG.previewSeconds:RM?T_STATIC:T; }
+
+  function boot(){
+    if(!build())return;
+    render(frameT());
+    if(hashP===null&&!RM)sync();
+  }
+  boot();
+  document.addEventListener('visibilitychange',sync);
+  if('IntersectionObserver' in window){new IntersectionObserver(function(en){inView=en[0].isIntersecting;sync();},{threshold:0}).observe(hero);}
+  if('ResizeObserver' in window){var rt=0;new ResizeObserver(function(){clearTimeout(rt);rt=setTimeout(function(){var was=running;stop();if(build()){render(frameT());if(was)sync();}},80);}).observe(C);}
+  else window.addEventListener('resize',function(){stop();if(build())render(frameT());sync();});
+
+  /* dev only: #dbg=1 dumps geometry so headless runs can check the field never touches the text */
+  if(/dbg=1/.test(location.hash)){
+    var out=document.getElementById('hf-dbg'), q=function(s){var r=document.querySelector(s).getBoundingClientRect();return s+' l='+Math.round(r.left)+' r='+Math.round(r.right)+' t='+Math.round(r.top)+' b='+Math.round(r.bottom);};
+    out.textContent=[q('#hero h1'),q('#hero .lede'),q('#hero .ctas'),q('#hero .backed'),q('.hf-c'),'nodes='+N.length+' edges='+E.length+' period='+PERIOD.toFixed(1)+' W='+W+' H='+H,'trips: '+TRIPS.slice(0,8).map(function(x){return x.start.toFixed(1)+'-'+x.end.toFixed(1)+'('+x.route.hops+'h>'+(x.route.target===DOTS[0]?'L':'S')+')';}).join(' ')].join('\n');
+  }
+})();
+
+
+/* ---------- FIG 1: handoff (scrubbed; #p=0..1 forces a frame) ---------- */
+(function(){
+  /* ---------- helpers ---------- */
+  var NS='http://www.w3.org/2000/svg';
+  function S(tag,attrs,parent){var e=document.createElementNS(NS,tag);for(var k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
+  function ease(t){return 1-Math.pow(1-t,3);}                       /* ~ cubic-bezier(.33,1,.68,1) */
+  function lerp(a,b,t){return a+(b-a)*t;}
+  function hex(c){c=(c||'').trim();var m=c.match(/^#([0-9a-f]{6})$/i);if(!m)return null;var n=parseInt(m[1],16);return [n>>16&255,n>>8&255,n&255];}
+  function rgb(c){return 'rgb('+c[0]+','+c[1]+','+c[2]+')';}
+  function mix(a,b,t){return 'rgb('+Math.round(lerp(a[0],b[0],t))+','+Math.round(lerp(a[1],b[1],t))+','+Math.round(lerp(a[2],b[2],t))+')';}
+
+  var sec=document.getElementById('handoff');
+
+  /* ---------- geometry (viewBox units; 1:1 px at >=1088px container) ---------- */
+  var W=1000,H=300, TW=370,TH=176,TT=112, R=22,BY=30, GAP=6, BIN=56, PAD=18, BH=8, CARY=250;
+  var ROWS=[162,184,206,228];
+  var termA={x:0,y:TT,w:TW,h:TH}, termB={x:W-TW,y:TT,w:TW,h:TH};
+  var bxA=TW-BIN, bxB=W-TW+BIN;                                      /* humans sit above the inner corners */
+  var rowsA=[{pill:1,w:.58},{w:.40},{w:.72,hot:1},{w:.30}];
+  var rowsB=[{pill:1,w:.50},{w:.64},{w:.36},{pill:1,w:.26,land:1,to:.60}];
+  var hp0={x:bxA+R+GAP,y:BY}, hp3={x:bxB-R-GAP,y:BY};               /* human -> human */
+  var tp0={x:TW+GAP,y:ROWS[2]+BH/2}, tp3={x:W-TW-GAP,y:ROWS[3]+BH/2};/* terminal -> terminal (A's finding row to B's newest row) */
+
+  function headD(x,y,ang){var c=Math.cos(ang),s=Math.sin(ang);function pt(dx,dy){return (x+dx*c-dy*s).toFixed(2)+' '+(y+dx*s+dy*c).toFixed(2);}return 'M'+pt(-7,-4.5)+' L'+pt(0,0)+' L'+pt(-7,4.5);}
+  function connD(p0,p3){var mx=(p0.x+p3.x)/2;return 'M'+p0.x.toFixed(2)+' '+p0.y.toFixed(2)+' C'+mx.toFixed(2)+' '+p0.y.toFixed(2)+' '+mx.toFixed(2)+' '+p3.y.toFixed(2)+' '+p3.x.toFixed(2)+' '+p3.y.toFixed(2);}
+
+  function drawTerm(g,t,rows){
+    var tg=S('g',{class:'termg'},g);
+    S('rect',{class:'term',x:t.x+.5,y:t.y+.5,width:t.w-1,height:t.h-1,rx:12},tg);
+    S('line',{class:'tbar',x1:t.x+1,y1:t.y+30.5,x2:t.x+t.w-1,y2:t.y+30.5},g);
+    [16,28,40].forEach(function(dx,i){S('circle',{class:'dot d'+(i+1),cx:t.x+dx,cy:t.y+15.5,r:4},g);});
+    var out={}, x0=t.x+PAD, iw=t.w-2*PAD;
+    rows.forEach(function(r,i){
+      var y=ROWS[i], x=x0;
+      if(r.pill){S('rect',{class:'pill',x:x,y:y,width:10,height:BH,rx:2.5},g);x+=16;}
+      var w=(iw-(x-x0))*r.w;
+      S('rect',{class:'bar',x:x,y:y,width:w,height:BH,rx:4},g);
+      if(r.hot)out.hot=S('rect',{class:'obar',x:x,y:y,width:w,height:BH,rx:4,opacity:0},g);
+      if(r.land)out.land={max:(iw-(x-x0))*r.to,el:S('rect',{class:'obar',x:x,y:y,width:0,height:BH,rx:4},g)};
+    });
+    S('rect',{class:'caret',x:x0,y:CARY,width:7,height:13},g);
+    return out;
+  }
+  function drawHuman(g,cx){
+    S('circle',{class:'badge',cx:cx,cy:BY,r:R},g);
+    S('circle',{class:'person',cx:cx,cy:BY-6,r:5.5},g);
+    S('path',{class:'person',d:'M'+(cx-10.5)+' '+(BY+12)+' C'+(cx-10.5)+' '+(BY+4)+' '+(cx-6)+' '+(BY+1.5)+' '+cx+' '+(BY+1.5)+' C'+(cx+6)+' '+(BY+1.5)+' '+(cx+10.5)+' '+(BY+4)+' '+(cx+10.5)+' '+(BY+12)},g);
+  }
+  function drawV(g,cx){var y1=BY+R+GAP,y2=TT-GAP;S('path',{class:'vline',d:'M'+cx+' '+y1+' V'+y2},g);S('path',{class:'vline',d:headD(cx,y2,Math.PI/2)},g);}
+
+  /* one "world" = the full figure with a timeline p in [0,1] */
+  function drawWorld(svg,g){
+    var under=S('g',{},g);                                             /* connector lives under the terminals */
+    var conn=S('path',{class:'conn'},under), pulse=S('path',{class:'pulse',opacity:0},under), head=S('path',{class:'head'},under);
+    var tl=S('g',{},g); var A=drawTerm(tl,termA,rowsA), B=drawTerm(tl,termB,rowsB);
+    var hl=S('g',{},g); drawHuman(hl,bxA); drawHuman(hl,bxB); drawV(hl,bxA); drawV(hl,bxB);
+    var cs=getComputedStyle(sec), cMuted=hex(cs.getPropertyValue('--muted'))||[107,103,98], cSig=hex(cs.getPropertyValue('--signal'))||[217,105,26], cInk=hex(cs.getPropertyValue('--ink'))||[26,25,23];
+    var last=null;
+    function apply(p){
+      if(p===last)return; last=p;
+      var tLost=seg(p,.10,.34), d=ease(seg(p,.38,.62)), hot=seg(p,.62,.66), tP=ease(seg(p,.68,.84)), land=ease(seg(p,.84,.92));
+      /* descent: x clears the terminal corners early, y drops through */
+      var xs=ease(seg(d,0,.45));
+      var p0={x:lerp(hp0.x,tp0.x,xs),y:lerp(hp0.y,tp0.y,d)}, p3={x:lerp(hp3.x,tp3.x,xs),y:lerp(hp3.y,tp3.y,d)};
+      var dd=connD(p0,p3);
+      conn.setAttribute('d',dd); pulse.setAttribute('d',dd); head.setAttribute('d',headD(p3.x,p3.y,0));
+      var k=seg(d,.6,1), col=mix(cMuted,cSig,k);                    /* dashes fill to solid as it turns orange */
+      conn.setAttribute('stroke',col); head.setAttribute('stroke',col);
+      conn.setAttribute('stroke-dasharray',(4+8*k).toFixed(2)+' '+(6*(1-k)).toFixed(2));
+      /* information going */
+      var L=conn.getTotalLength();
+      if(d===0&&tLost>0&&tLost<1){
+        pulse.setAttribute('stroke',rgb(cInk)); pulse.setAttribute('stroke-dasharray','18 '+(L+60));
+        pulse.setAttribute('stroke-dashoffset',(18-tLost*(L*.72+18)).toFixed(2));
+        pulse.setAttribute('opacity',(.85*(1-seg(tLost,.45,.85))).toFixed(3));
+      }else if(d===1&&tP>0&&tP<1){
+        pulse.setAttribute('stroke',rgb(cSig)); pulse.setAttribute('stroke-dasharray','20 '+(L+60));
+        pulse.setAttribute('stroke-dashoffset',(20-tP*(L+20)).toFixed(2));
+        pulse.setAttribute('opacity',1);
+      }else pulse.setAttribute('opacity',0);
+      A.hot.setAttribute('opacity',hot.toFixed(3));
+      B.land.el.setAttribute('width',(B.land.max*land).toFixed(2));
+    }
+    return {apply:apply};
+  }
+  function makeSvg(host){return S('svg',{class:'hs-svg',viewBox:'0 0 '+W+' '+H,preserveAspectRatio:'xMinYMid meet','aria-hidden':'true'},host);}
+
+  /* ---------- main (scrubbed) ---------- */
+  var stage=document.getElementById('stage'), lbl=document.getElementById('lbl'), cap=document.getElementById('cap');
+  var svg=makeSvg(stage), world=drawWorld(svg,S('g',{},svg));
+  function setLay(el,i){var l=el.querySelectorAll('.lay');l[0].classList.toggle('off',i!==0);l[1].classList.toggle('off',i!==1);}
+  var fig=document.querySelector('.hs-fig');
+  function fit(){ var w=clamp((window.innerHeight-450)*W/H,520,1000); fig.style.maxWidth=w+'px'; }   /* keep label + caprow the figure's width when height-bound */
+  function applyMain(p){ world.apply(p); var i=p<.52?0:1; setLay(lbl,i); setLay(cap,i); }
+
+  /* ---------- static fallback ---------- */
+  var st=document.getElementById('static'), built=false;
+  function buildStatic(){
+    if(built)return; built=true;
+    [['before ChatOverflow','It travels by Slack, standup, or not at all.',0],['<b>&#9670;</b>after ChatOverflow','Straight from one agent\'s session to the next.',1]].forEach(function(s){
+      var b=document.createElement('div'); b.className='hs-sblock';
+      b.innerHTML='<div class="hs-lbl"><span class="lay">'+s[0]+'</span></div>';
+      var sv=makeSvg(b); drawWorld(sv,S('g',{},sv)).apply(s[2]);
+      var c=document.createElement('div'); c.className='hs-scap'; c.textContent=s[1]; b.appendChild(c);
+      st.appendChild(b);
+    });
+  }
+  var mq=window.matchMedia&&window.matchMedia('(max-width:860px)');
+  function mode(){var s=RM||(mq&&mq.matches);document.body.classList.toggle('static',!!s);if(s)buildStatic();return s;}
+
+  /* ---------- scroll driver (#p=0..1 overrides) ---------- */
+  var ticking=false;
+  function run(){ticking=false;
+    if(mode()){fig.style.maxWidth='';return;}
+    fit();
+    var hp=hashNum('p'), p, h=sec.offsetHeight-window.innerHeight;
+    if(hp!==null){p=hp; document.body.classList.add('shot');}          /* dev: #p renders the stage at scroll 0, unpinned */
+    else p=h>0?(-sec.getBoundingClientRect().top)/h:0;
+    applyMain(clamp(p,0,1));
+  }
+  function onS(){if(!ticking){ticking=true;requestAnimationFrame(run);}}
+  window.addEventListener('scroll',onS,{passive:true});
+  window.addEventListener('resize',onS,{passive:true});
+  window.addEventListener('hashchange',onS);
+  run();
+})();
+
+
+/* ---------- FIG 2 background: dot-matrix vote motif ---------- */
+
+/* =====================================================================
+   VB: dot-matrix vote motif. Paste block 3 of 3 (inside the page's main script).
+   Builds two glyphs from rows of dots: a filled upvote (ink dots, ordered-dither
+   to orange at the apex) and a smaller outline downvote below it. Plays once
+   when #skills enters view: rows populate bottom-up like a tally settling.
+   ===================================================================== */
+(function(){
+  var host=document.getElementById('vb'), svg=document.getElementById('vbSvg'), sec=document.getElementById('skills');
+  if(!host||!svg||!sec) return;
+  var NS='http://www.w3.org/2000/svg';
+  var T={
+    pitch:12,        // dot lattice pitch (CSS px)
+    dot:3,         // dot diameter
+    slope:.60,       // half-width per unit height (triangle steepness)
+    axis:.52,        // x of the shared axis as a fraction of the box width
+    top:.04,         // apex of the upvote, fraction of box height
+    base:.72,        // base of the upvote
+    dnTop:.845,      // top edge of the downvote (sits below the caption rule)
+    bottom:.985,     // apex of the downvote
+    sigFull:.74,     // rows above this fraction of the upvote height are all orange
+    sigThree:.64,    // ... three of four dots orange
+    sigHalf:.54,     // ... every other dot orange (checkered)
+    sigQuarter:.44,  // ... every fourth dot orange
+    dur:2200, window:.16, ease:[.33,1,.68,1]
+  };
+  var rows=[], down=null, edge=null, rowGeom=[], built=false, state={p:0, played:false};
+
+  function el(n,a){ var e=document.createElementNS(NS,n); for(var k in a) e.setAttribute(k,a[k]); return e; }
+  function dots(x1,y1,x2,y2,cls,dash,off){
+    var l=el('line',{x1:x1,y1:y1,x2:x2,y2:y2,'class':cls,'stroke-width':T.dot,'stroke-dasharray':dash||('0 '+T.pitch)});
+    if(off) l.setAttribute('stroke-dashoffset',off);
+    return l;
+  }
+  function build(){
+    var r=host.getBoundingClientRect(), W=Math.round(r.width), H=Math.round(r.height);
+    if(!W||!H) return;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    rows=[]; rowGeom=[];
+    var P=T.pitch, cx=Math.round(W*T.axis)+.5;
+    // ---- upvote: horizontal rows of dots, bottom to top ----
+    var yTop=H*T.top, yBase=H*T.base, hUp=yBase-yTop, N=Math.floor(hUp/P);
+    for(var i=0;i<=N;i++){
+      var y=yBase-i*P, hw=T.slope*(hUp-i*P), n=Math.floor(hw/P);
+      var g=el('g',{'class':'vb-row'}); var f=i/N;
+      if(n<=0){ g.appendChild(el('circle',{cx:cx,cy:y,r:T.dot/2,'class':'vb-sig','stroke-width':0})); g.lastChild.style.fill='currentColor'; g.lastChild.style.color='var(--signal)'; g.lastChild.style.fillOpacity='var(--vb-sig)'; }
+      else{
+        var x1=cx-n*P, x2=cx+n*P, odd=i%2;
+        if(f>=T.sigFull){ g.appendChild(dots(x1,y,x2,y,'vb-sig')); }
+        else if(f>=T.sigThree){           // dense: orange three of four
+          g.appendChild(dots(x1,y,x2,y,'vb-sig','0 '+P+' 0 '+P+' 0 '+(2*P), odd?3*P:P));
+          g.appendChild(dots(x1,y,x2,y,'vb-ink','0 '+(4*P), odd?2*P:0));
+        } else if(f>=T.sigHalf){          // checkered: orange every other dot
+          g.appendChild(dots(x1,y,x2,y,'vb-sig','0 '+(2*P), odd?P:0));
+          g.appendChild(dots(x1,y,x2,y,'vb-ink','0 '+(2*P), odd?0:P));
+        } else if(f>=T.sigQuarter){      // sparse: orange every fourth dot
+          g.appendChild(dots(x1,y,x2,y,'vb-sig','0 '+(4*P), odd?2*P:0));
+          g.appendChild(dots(x1,y,x2,y,'vb-ink','0 '+P+' 0 '+P+' 0 '+(2*P), odd?3*P:P));
+        } else g.appendChild(dots(x1,y,x2,y,'vb-ink'));
+      }
+      svg.appendChild(g); rows.push(g); rowGeom.push({y:y,hw:Math.max(n*P,0)});
+    }
+    // ---- downvote: outline only (top edge + two sides), same lattice ----
+    var yT=H*T.dnTop, yB=H*T.bottom, hDn=yB-yT, hwD=Math.floor(T.slope*hDn/P)*P;
+    down=el('g',{'class':'vb-down'});
+    down.appendChild(dots(cx-hwD,yT,cx+hwD,yT,'vb-dn'));
+    var sideLen=Math.hypot(hwD,hDn), seg=sideLen/Math.round(sideLen/P); // even dot spacing along the diagonal
+    down.appendChild(dots(cx-hwD,yT,cx,yB,'vb-dn','0 '+seg));
+    down.appendChild(dots(cx+hwD,yT,cx,yB,'vb-dn','0 '+seg));
+    svg.appendChild(down);
+    // ---- fill line: a hairline riding the top of the tally while it rises ----
+    edge=el('line',{x1:cx,y1:yBase,x2:cx,y2:yBase,'class':'vb-edge'}); svg.appendChild(edge);
+    built=true; frame(state.p);
+  }
+  function bez(p1x,p1y,p2x,p2y){ // cubic-bezier(x) -> y, Newton on x
+    function cx(t){return 3*p1x*t*(1-t)*(1-t)+3*p2x*t*t*(1-t)+t*t*t}
+    function cy(t){return 3*p1y*t*(1-t)*(1-t)+3*p2y*t*t*(1-t)+t*t*t}
+    function dx(t){return 3*p1x*(1-t)*(1-t)+6*(p2x-p1x)*t*(1-t)+3*(1-p2x)*t*t}
+    return function(x){ if(x<=0)return 0; if(x>=1)return 1; var t=x; for(var i=0;i<6;i++){var d=dx(t); if(d<1e-6)break; t-=(cx(t)-x)/d;} return cy(t); };
+  }
+  var ease=bez.apply(null,T.ease);
+  function frame(p){
+    state.p=p; if(!built) return;
+    var e=ease(p), N=rows.length-1, w=T.window, lead=e*(1+w);
+    for(var i=0;i<=N;i++){ var a=(lead-i/N)/w; rows[i].style.opacity=a<=0?0:a>=1?1:a; }
+    down.style.opacity=Math.max(0,Math.min(1,(e-.72)/.28));
+    // fill line sits at the row currently arriving, fades out over the last stretch
+    var k=Math.max(0,Math.min(N,Math.round((lead-w*.5)*N))), g=rowGeom[k], cx=+edge.getAttribute('x1');
+    var ex=g.hw+18, fade=e<.06?e/.06:e>.86?Math.max(0,(1-e)/.14):1;
+    edge.setAttribute('x1',cx-ex); edge.setAttribute('x2',cx+ex); edge.setAttribute('y1',g.y-T.pitch*.5); edge.setAttribute('y2',g.y-T.pitch*.5);
+    edge.style.opacity=fade;
+  }
+  function play(){
+    if(state.played) return; state.played=true;
+    var t0=performance.now();
+    (function tick(now){ var p=Math.min(1,(now-t0)/T.dur); frame(p); if(p<1) requestAnimationFrame(tick); })(t0);
+  }
+  var hash=/[#&]vb=([\d.]+)/.exec(location.hash), reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  build();
+  var ro; if('ResizeObserver' in window){ ro=new ResizeObserver(function(){ build(); }); ro.observe(sec); } else addEventListener('resize',build);
+  if(hash){ state.played=true; frame(Math.max(0,Math.min(1,parseFloat(hash[1])))); }
+  else if(reduce){ state.played=true; frame(1); }
+  else if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en,io){ if(en[0].isIntersecting){ io.disconnect(); play(); } },{threshold:.3}).observe(sec);
+  } else play();
+  window.VB={T:T,build:build,frame:frame,play:function(){state.played=false;play();}};
+})();
+
+
+/* ---------- FIG 2: skills timeline (scroll-driven, one row at a time; #sk=0..1 forces a frame) ---------- */
+(function(){
+  function bez(x1,y1,x2,y2){
+    function A(a,b){return 1-3*b+3*a} function B(a,b){return 3*b-6*a} function C(a){return 3*a}
+    function calc(t,a,b){return ((A(a,b)*t+B(a,b))*t+C(a))*t}
+    function slope(t,a,b){return 3*A(a,b)*t*t+2*B(a,b)*t+C(a)}
+    return function(x){ if(x<=0)return 0; if(x>=1)return 1; var t=x;
+      for(var i=0;i<8;i++){var s=slope(t,x1,x2); if(s<1e-6)break; t-=(calc(t,x1,x2)-x)/s;}
+      return calc(t,y1,y2); };
+  }
+  var EASE=bez(.33,1,.68,1);
+  var sec=document.getElementById('skills'), fig=document.getElementById('fig'); if(!fig)return;
+  var hashP=hashNum('sk'); if(hashP!==null){hashP=clamp(hashP,0,1); document.documentElement.classList.add('nomo');}
+  var ref=document.querySelector('#tl1 .cells');
+  var blks=[].slice.call(fig.querySelectorAll('.blk')), dots=[].slice.call(fig.querySelectorAll('.dot')), lbs=[].slice.call(fig.querySelectorAll('.lb')), cards=[].slice.call(fig.querySelectorAll('.card'));
+  var votes=document.getElementById('votes'), staleBlk=document.getElementById('staleBlk'), tiny=document.getElementById('tinyBlk');
+  var scan1=document.getElementById('scan1'), scan2=document.getElementById('scan2'), row2=document.getElementById('row2');
+  var mq=window.matchMedia&&window.matchMedia('(max-width:860px)');
+  blks.concat(dots,lbs,cards).forEach(function(e){e._r=e.closest('.r2')?2:1;});
+  var W=0, G=null, lastP=-1;
+  var BASE=2.4, SLOW=0.45, DWELL=0.5, POP=0.55, TAIL=0.5;
+  function measure(){
+    var r=ref.getBoundingClientRect(); W=r.width; var L=r.left;
+    blks.forEach(function(b){var q=b.getBoundingClientRect(); b._l=q.left-L;});
+    dots.forEach(function(d){var q=d.getBoundingClientRect(); d._c=q.left-L+q.width/2;});
+    var cols=[].slice.call(ref.querySelectorAll('.cell')).map(function(c){var q=c.getBoundingClientRect(); return {l:q.left-L, r:q.right-L};});
+    var tq=tiny.getBoundingClientRect(), vq=votes.getBoundingClientRect();
+    var A=[{x:tq.right-L},{x:cols[2].r},{x:cols[4].r},{x:cols[5].r}];
+    var v=W/BASE, segs=[], t=0, x=0;
+    A.forEach(function(a){
+      var sw=0.32*v*SLOW, s0=Math.max(x,a.x-sw);
+      if(s0>x){segs.push({t0:t,t1:t+(s0-x)/v,x0:x,x1:s0}); t+=(s0-x)/v; x=s0;}
+      if(a.x>x){var d=(a.x-x)/(0.32*v); segs.push({t0:t,t1:t+d,x0:x,x1:a.x}); t+=d; x=a.x;}
+      a.t=t; segs.push({t0:t,t1:t+DWELL,x0:x,x1:x}); t+=DWELL;
+    });
+    if(x<W){segs.push({t0:t,t1:t+(W-x)/v,x0:x,x1:W}); t+=(W-x)/v; x=W;}
+    segs.push({t0:t,t1:t+TAIL,x0:W,x1:W}); t+=TAIL;
+    G={segs:segs,T:t,A:A,cols:cols,votesC:vq.left-L+vq.width/2,L:L};
+    cards.forEach(function(c){
+      var col=+c.dataset.col-1, al=c.dataset.align||'left';
+      if(al==='left'){c.style.left=cols[col].l+'px'; c.style.right='auto';}
+      else{c.style.right=(W-cols[col].r)+'px'; c.style.left='auto';}
+      c._t=A[+c.dataset.anchor].t;
+    });
+    lbs.forEach(function(l){l._x=cols[+l.dataset.col-1].l+4;});
+  }
+  function xAt(t){var s=G.segs; for(var i=0;i<s.length;i++){ if(t<=s[i].t1){var d=s[i].t1-s[i].t0, f=d?(t-s[i].t0)/d:1; return s[i].x0+(s[i].x1-s[i].x0)*f;} } return W;}
+  function render(p){
+    lastP=p;
+    var t1=seg(p,0.04,0.46)*G.T, t2=seg(p,0.54,0.96)*G.T, x1=xAt(t1), x2=xAt(t2);
+    var X=[0,x1,x2], T=[0,t1,t2];
+    blks.forEach(function(b){b.style.setProperty('--e',(X[b._r]-b._l).toFixed(1)+'px');});
+    dots.forEach(function(d){d.classList.toggle('on',X[d._r]>=d._c);});
+    lbs.forEach(function(l){l.classList.toggle('on',X[l._r]>=l._x);});
+    votes.classList.toggle('on',x2>=G.votesC);
+    staleBlk.classList.toggle('stale',t1>=G.A[3].t+0.15);
+    cards.forEach(function(c){var e=EASE(clamp((T[c._r]-c._t)/POP,0,1)); c.style.opacity=e; c.style.transform='translateY('+(6*(1-e)).toFixed(2)+'px)';});
+    function sc(el,t,x){var tailIn=clamp((t-(G.T-TAIL))/TAIL,0,1), head=clamp(t/0.3,0,1); el.style.left=x+'px'; el.style.opacity=(0.5*head*(1-tailIn)).toFixed(3);}
+    sc(scan1,t1,x1); sc(scan2,t2,x2);
+    row2.classList.toggle('dim',p<0.5);
+  }
+  var ticking=false;
+  function onScroll(){ if(ticking)return; ticking=true; requestAnimationFrame(function(){ ticking=false;
+    if(!G)measure();
+    var p;
+    if(hashP!==null)p=hashP; else if(RM||(mq&&mq.matches))p=1; else { var h=sec.offsetHeight-window.innerHeight; p=h>0?(-sec.getBoundingClientRect().top)/h:0; }
+    render(clamp(p,0,1));
+  });}
+  measure(); onScroll();
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('hashchange',onScroll);
+  var rt; window.addEventListener('resize',function(){clearTimeout(rt); rt=setTimeout(function(){measure(); render(Math.max(lastP,0));},80);},{passive:true});
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(function(){measure(); render(Math.max(lastP,0));});
+})();
+
+/* ---------- FIG 3: how it works ---------- */
+(function(){
+  var sec=document.getElementById('howit'); if(!sec)return;
+  var steps=[].slice.call(sec.querySelectorAll('.ht-step'));
+  var scroll=sec.querySelector('.ht-scroll'), body=sec.querySelector('.ht-body');
+  var stages=[].slice.call(sec.querySelectorAll('.ht-stage'));
+  var setTitle=swapper(document.getElementById('htTitle')), live=document.getElementById('htLive'), setCap=swapper(document.getElementById('htCap'));
+  var mq=window.matchMedia&&window.matchMedia('(max-width:820px)');
+  var TITLES=['chatoverflow','chatoverflow','chatoverflow','claude code'];
+  var LIVES=['connected','learning','learning','connected'];
+  var CAPS=['One install.','Past sessions, distilled.','New sessions, as they happen.','Delivered before the plan, not after the mistake.'];
+  var cur=-1;
+  function setStep(i){
+    if(i===cur)return; cur=i;
+    steps.forEach(function(s,k){s.classList.toggle('on',k===i);});
+    setTitle(TITLES[i]); live.textContent=LIVES[i]; setCap(CAPS[i]);
+    if(scroll&&body&&stages[i]){
+      var max=scroll.scrollHeight-body.clientHeight; if(max<0)max=0;
+      var off=stages[i].offsetTop; if(off>max)off=max;
+      scroll.style.transform='translateY('+(-off)+'px)';
+    }
+  }
+  var ticking=false;
+  function onScroll(){ if(ticking)return; ticking=true; requestAnimationFrame(function(){ ticking=false;
+    if(mq&&mq.matches){ setStep(0); return; }
+    var hp=hashNum('hw'); var p;
+    if(hp!==null)p=hp; else { var h=sec.offsetHeight-window.innerHeight; p=h>0?(-sec.getBoundingClientRect().top)/h:0; }
+    p=clamp(p,0,1);
+    var i=Math.floor(p*4); if(i>3)i=3;
+    setStep(i);
+  });}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  window.addEventListener('hashchange',onScroll);
+  setStep(0); onScroll();
+
+  /* live findings log */
+  var led=document.getElementById('led');
+  var ROWS=[
+    'billing-worker retries not idempotent below v2.4',
+    'OB_V2 flag still gates onboarding for 3 tenants',
+    '/orders codegen breaks on nullable arrays',
+    'onboarding state change races svc-y in prod',
+    'Stripe 429: honor Retry-After or webhooks fire twice',
+    'seed script assumes UTC; local runs drift a day',
+    'pnpm 9 breaks the docker build; pin 8.15',
+    'REINDEX after changing tenant_id partitioning'
+  ];
+  var SEED=['14:02','13:47','13:31','12:58'];
+  var MAX=4, ptr=MAX, clockMin=14*60+2;
+  function clock(){ clockMin+=1+Math.floor(Math.random()*4); var h=Math.floor(clockMin/60)%24, m=clockMin%60; return (h<10?'0':'')+h+':'+(m<10?'0':'')+m; }
+  function row(ts,tx,fresh){var d=document.createElement('div'); d.className='lr'+(fresh?' new':''); d.innerHTML='<span class="ts">'+ts+'</span><span class="tx">'+tx+'</span>'; return d;}
+  for(var j=0;j<MAX;j++){led.appendChild(row(SEED[j],ROWS[j],false));}
+  function tick(){
+    if(RM||cur!==2||document.hidden)return;
+    var el=row(clock(),ROWS[ptr%ROWS.length],true); ptr++;
+    led.insertBefore(el,led.children[1]);
+    var rows=led.querySelectorAll('.lr'); if(rows.length>MAX)led.removeChild(rows[rows.length-1]);
+  }
+  setInterval(tick,2600);
+})();
+/* ---------- FOOTER MARK ---------- */
+/* ---------- footer mark: the logo rasterised into terminal cells ----------
+   Idle: one brightness pulse travels round the ring and out through the gap (lighting each dot).
+   Cursor: cells shove away from the pointer on a critically damped spring, slide back when it leaves.
+   Dev hash: #p=0..1 freezes the idle phase; #mx=0..1&my=0..1 places the cursor (equilibrium frame). */
+(function(){
+  var stage=document.getElementById('ftStage'), cv=document.getElementById('ftCanvas');
+  if(!stage||!cv||!cv.getContext) return;
+  var ctx=cv.getContext('2d'); if(!ctx) return;
+  function hn(k){var m=location.hash.match(new RegExp('(?:^|[#&])'+k+'=([0-9.]+)')); return m?parseFloat(m[1]):null;}
+  var HP=hn('fp'), HX=hn('mx'), HY=hn('my');
+  var SHOT=(HP!==null||HX!==null);
+  var RM=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var STATIC=RM&&!SHOT;
+
+  /* logo geometry, math angles (0 = right horizon, 180 = left horizon), measured off the SVG mark */
+  var ARC_END=81, STUB_END=12;                    /* the C runs 81deg -> 180deg (and on below the line); a stub 0 -> 12deg */
+  var DOTS=[[58,0.88,0.105],[35,0.915,0.14]];     /* [angle, radius as fraction of Ro, dot radius as fraction of Ro] */
+  var PERIOD=6.4, TRAVEL=0.66, HEAD=0.02, TAIL=0.16;  /* pulse: seconds per loop, share spent travelling, sharp front + long tail (in s) */
+
+  var W=0,H=0,dpr=1,bw=6,bh=10,cells=[],ink='#ECEAE6',sig='#FF8C39';
+  var RC=120,PUSH=48,K=90,DAMP=19;                /* cursor radius, max shove (px), spring, damping (>=2*sqrt(K): no bounce) */
+  var ptr=null, ptrTimer=0;
+
+  function rnd(i){var x=Math.sin(i*127.1+311.7)*43758.5453; return x-Math.floor(x);}
+
+  function build(){
+    var r=stage.getBoundingClientRect(); W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    var cs=getComputedStyle(stage);
+    ink=(cs.getPropertyValue('--ink')||'').trim()||ink; sig=(cs.getPropertyValue('--signal')||'').trim()||sig;
+
+    var pw=Math.max(4,Math.round(H/37)), ph=Math.max(6,Math.round(H/23));   /* cell pitch: a mono character cell */
+    bw=Math.max(2,Math.round(pw*0.66)); bh=Math.max(3,Math.round(ph*0.7));  /* the block inside the cell */
+    var cx=W/2, cy=H;                                                        /* ring centre sits on the hairline */
+    var Ro=H-ph*0.8, Ri=Ro*0.725, mid=(Ro+Ri)/2, ht=(Ro-Ri)/2;
+    RC=Math.max(60,Math.min(130,H*0.4)); PUSH=H*0.16;
+
+    var dots=DOTS.map(function(d){var a=d[0]*Math.PI/180; return {x:cx+Ro*d[1]*Math.cos(a), y:cy-Ro*d[1]*Math.sin(a), r:Ro*d[2]};});
+    var arc=[], orange=[], id=0, rows=Math.ceil(H/ph), cols=Math.ceil(Ro/pw)+1;
+    for(var j=0;j<rows;j++){
+      var y=H-(j+0.5)*ph, dy=cy-y;
+      for(var i=-cols;i<cols;i++){
+        var x=cx+(i+0.5)*pw, dx=x-cx, rho=Math.hypot(dx,dy), th=Math.atan2(dy,dx)*180/Math.PI;
+        var cov=0, o=false;
+        if(th>=ARC_END||th<=STUB_END) cov=Math.max(0,Math.min(1,0.5+(ht-Math.abs(rho-mid))/ph));
+        for(var d=0; d<dots.length; d++){
+          var c2=Math.max(0,Math.min(1,0.5+(dots[d].r-Math.hypot(x-dots[d].x,y-dots[d].y))/ph));
+          if(c2>cov){cov=c2; o=true;}
+        }
+        if(cov<0.3) continue;
+        (o?orange:arc).push({hx:x,hy:y,x:x,y:y,vx:0,vy:0,s:(180-th)/180,o:o,a0:0.32+0.24*rnd(id++),cov:cov});
+      }
+    }
+    cells=arc.concat(orange);   /* orange last: one fillStyle switch per frame */
+  }
+
+  function target(c,out){
+    out.x=c.hx; out.y=c.hy;
+    if(!ptr) return;
+    var dx=c.hx-ptr.x, dy=c.hy-ptr.y, d=Math.hypot(dx,dy);
+    if(d>=RC) return;
+    if(d<1){dx=1; dy=0; d=1;}
+    var f=1-d/RC; f=f*f*PUSH;
+    out.x+=dx/d*f; out.y+=dy/d*f;
+  }
+  var tg={x:0,y:0};
+
+  function step(dt){
+    var dmp=Math.exp(-DAMP*dt), moving=false;
+    for(var i=0;i<cells.length;i++){
+      var c=cells[i]; target(c,tg);
+      c.vx=(c.vx+(tg.x-c.x)*K*dt)*dmp; c.vy=(c.vy+(tg.y-c.y)*K*dt)*dmp;
+      c.x+=c.vx*dt; c.y+=c.vy*dt;
+      if(!moving && (Math.abs(c.vx)+Math.abs(c.vy)>0.5 || Math.abs(c.x-c.hx)+Math.abs(c.y-c.hy)>0.3)) moving=true;
+    }
+    return moving;
+  }
+
+  function settle(){ for(var i=0;i<cells.length;i++){var c=cells[i]; target(c,tg); c.x=tg.x; c.y=tg.y; c.vx=c.vy=0;} }
+
+  function draw(phase){
+    ctx.clearRect(0,0,W,H);
+    var w=-0.02+1.24*Math.min(1,phase/TRAVEL);     /* pulse position along s (0 = left horizon, 1 = right); parks off the ring while it waits */
+    var style=null;
+    for(var i=0;i<cells.length;i++){
+      var c=cells[i];
+      var d=w-c.s, k=d<0?1+d/HEAD:1-d/TAIL; k=k<0?0:k*k;   /* comet: sharp leading edge, tail fades behind it */
+      var shove=Math.min(1,Math.hypot(c.x-c.hx,c.y-c.hy)/PUSH);
+      var a, st=c.o?sig:ink;
+      if(c.o) a=Math.min(1,0.62+0.38*k+0.3*shove); else a=Math.min(1,c.a0+0.48*k+0.5*shove);
+      if(st!==style){ctx.fillStyle=st; style=st;}
+      ctx.globalAlpha=a*c.cov;
+      ctx.fillRect(c.x-bw/2,c.y-bh/2,bw,bh);
+    }
+    ctx.globalAlpha=1;
+  }
+
+  /* ---- headless / deterministic frame ---- */
+  if(SHOT){
+    build();
+    if(HX!==null) ptr={x:HX*W,y:(HY===null?0.5:HY)*H};
+    settle(); draw(HP===null?1:HP);
+    return;
+  }
+  /* ---- reduced motion: the mark, once, no cursor ---- */
+  if(STATIC){
+    build(); draw(1);
+    window.addEventListener('resize',function(){build(); draw(1);},{passive:true});
+    return;
+  }
+
+  /* ---- live ---- */
+  var running=false, inView=true, last=0, t0=performance.now();
+  function frame(now){
+    if(!running) return;
+    var dt=Math.min(0.05,(now-last)/1000); last=now;
+    step(dt); draw(((now-t0)/1000/PERIOD)%1);
+    requestAnimationFrame(frame);
+  }
+  function start(){ if(running) return; running=true; last=performance.now(); requestAnimationFrame(frame); }
+  function stop(){ running=false; }
+  function sync(){ if(inView&&!document.hidden) start(); else stop(); }
+
+  function local(e){var r=cv.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top};}
+  stage.addEventListener('pointermove',function(e){ if(e.pointerType==='touch') return; ptr=local(e); },{passive:true});
+  stage.addEventListener('pointerleave',function(){ ptr=null; });
+  stage.addEventListener('pointerdown',function(e){    /* touch: a tap shoves, then the cells return */
+    if(e.pointerType!=='touch') return;
+    ptr=local(e); clearTimeout(ptrTimer); ptrTimer=setTimeout(function(){ptr=null;},280);
+  },{passive:true});
+
+  build();
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ inView=es[0].isIntersecting; sync(); },{rootMargin:'40px'}).observe(stage);
+  }
+  document.addEventListener('visibilitychange',sync);
+  var rt=0; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(build,120); },{passive:true});
+  sync();
+})();
+
+/* back to top */
+(function(){var b=document.getElementById('ftTop'); if(b) b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
+
+</script>
+</body>
+</html>

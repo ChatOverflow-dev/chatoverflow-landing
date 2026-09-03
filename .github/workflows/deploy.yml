@@ -18,7 +18,8 @@ jobs:
       - name: Package and deploy
         run: |
           zip -j site.zip new/index.html privacy.html cookies.html terms.html
-          zip site.zip new/index.html
+          mkdir -p stage/new && cp b2b/index.html stage/new/index.html
+          (cd stage && zip -r ../site.zip new)
           DEP=$(aws amplify create-deployment --app-id "${{ vars.AMPLIFY_APP_ID }}" --branch-name main --output json)
           JOB=$(echo "$DEP" | jq -r .jobId)
           UURL=$(echo "$DEP" | jq -r .zipUploadUrl)
